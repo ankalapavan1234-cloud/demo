@@ -27,23 +27,27 @@ const Events = () => {
         }
       );
 
-      gsap.fromTo('.event-card',
-        {
-          opacity: 0,
-          y: 100,
-        },
-        {
-          scrollTrigger: {
-            trigger: eventsRef.current,
-            start: 'top 80%',
+      // Animate event cards scoped to this section to avoid global selector issues
+      if (eventsRef.current) {
+        const cards = eventsRef.current.querySelectorAll('.event-card');
+        gsap.fromTo(cards,
+          {
+            opacity: 0,
+            y: 100,
           },
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-        }
-      );
+          {
+            scrollTrigger: {
+              trigger: eventsRef.current,
+              start: 'top 80%',
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+          }
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
