@@ -268,7 +268,7 @@ const Events = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-12 overflow-hidden bg-white">
+  <section ref={heroRef} className="relative pt-40 md:pt-56 pb-12 overflow-hidden bg-white">
         {/* Subtle Dotted Grid Background Pattern */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div className="absolute inset-0" style={{
@@ -367,7 +367,7 @@ const Events = () => {
       </section>
 
       {/* Tab Navigation */}
-      <section className="py-6 bg-gray-50 border-b border-gray-200 sticky top-20 z-40">
+  <section className="py-6 bg-gray-50 border-b border-gray-200 sticky top-[120px] z-40">
         <div className="container mx-auto px-6">
           <div className="flex justify-center gap-4">
             <button
