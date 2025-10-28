@@ -106,7 +106,11 @@ const Projects = () => {
         'Built a unified IoT network using Arduino and Raspberry Pi nodes, collecting and analyzing data in real-time through a centralized Node.js server and MongoDB database.',
       impact: '40% reduction in energy costs, 95% attendance accuracy, automated facility management',
       tech: ['Arduino', 'Raspberry Pi', 'Node.js', 'MongoDB', 'MQTT', 'Socket.io'],
-      icon: '🏫',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" aria-hidden>
+          <path d="M12 2L2 7v2h20V7L12 2zm0 4.5L18 8v2H6V8l6-1.5zM6 12v8h4v-6h4v6h4v-8H6z" />
+        </svg>
+      ),
       color: 'from-blue-500 to-cyan-500',
       bgColor: 'bg-blue-50',
       borderColor: 'border-blue-400',
@@ -129,7 +133,11 @@ const Projects = () => {
         'Developed deep learning models analyzing study habits, performance data, and cognitive patterns to create adaptive learning paths. Integrated NLP for conversational tutoring.',
       impact: '70% improvement in exam scores, 50% reduction in study time, 2000+ active users',
       tech: ['Python', 'TensorFlow', 'React', 'Flask', 'NLP', 'OpenAI API'],
-      icon: '🎓',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" aria-hidden>
+          <path d="M12 2L3 7l9 5 9-5-9-5zm0 7.5L6.2 7 12 4.5 17.8 7 12 9.5zM5 9v6c0 3 3 5 7 5s7-2 7-5V9" />
+        </svg>
+      ),
       color: 'from-purple-500 to-pink-500',
       bgColor: 'bg-purple-50',
       borderColor: 'border-purple-400',
@@ -152,7 +160,11 @@ const Projects = () => {
         'Implemented ROS-based architecture with OpenCV for object detection, SLAM for mapping, and deep reinforcement learning for optimal path planning.',
       impact: '98% navigation accuracy, 0 collisions in 500+ test runs, autonomous delivery system',
       tech: ['ROS', 'OpenCV', 'C++', 'Python', 'LiDAR', 'Reinforcement Learning'],
-      icon: '🤖',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" aria-hidden>
+          <path d="M12 2a4 4 0 00-4 4v1H6v6h2v4h8v-4h2V7h-2V6a4 4 0 00-4-4zM8 9h8v6H8V9z" />
+        </svg>
+      ),
       color: 'from-orange-500 to-red-500',
       bgColor: 'bg-orange-50',
       borderColor: 'border-orange-400',
@@ -175,7 +187,11 @@ const Projects = () => {
         'Built Ethereum-based smart contracts storing encrypted credential hashes, with a React interface for instant verification by employers and institutions worldwide.',
       impact: 'Zero fraud cases, 5-second verification time, adopted by 20+ institutions',
       tech: ['Solidity', 'Ethereum', 'Web3.js', 'React', 'IPFS', 'MetaMask'],
-      icon: '🔗',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" aria-hidden>
+          <path d="M3.9 12a5 5 0 017.07-7.07l1.41 1.41A5 5 0 116.34 13.4L4.93 12l-.99.99L3 12zM20.1 12a5 5 0 01-7.07 7.07l-1.41-1.41A5 5 0 1117.66 10.6L19.07 12l.99-.99L21 12z" />
+        </svg>
+      ),
       color: 'from-indigo-500 to-purple-500',
       bgColor: 'bg-indigo-50',
       borderColor: 'border-indigo-400',
@@ -354,7 +370,11 @@ const Projects = () => {
               background: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(240,240,255,0.5) 100%)',
             }}
           >
-            <div className="text-6xl mb-6">💡</div>
+            <div className="text-6xl mb-6">
+              <svg viewBox="0 0 24 24" className="w-16 h-16 text-yellow-400" fill="currentColor" aria-hidden>
+                <path d="M9 21h6v-1.5H9V21zm3-19a7 7 0 00-4.9 11.9L9 16h6l2.9-2.1A7 7 0 0012 2z" />
+              </svg>
+            </div>
             <h3 className="text-4xl font-bold mb-4 gradient-text">
               Got a Brilliant Idea?
             </h3>
@@ -458,7 +478,11 @@ const Projects = () => {
               {/* Impact */}
               <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-4 border-yellow-300 rounded-2xl p-8 mb-12">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="text-5xl">🎯</div>
+                  <div className="text-5xl">
+                    <svg viewBox="0 0 24 24" className="w-12 h-12 text-pink-500" fill="currentColor" aria-hidden>
+                      <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" />
+                    </svg>
+                  </div>
                   <h4 className="text-3xl font-bold text-orange-900">Impact & Results</h4>
                 </div>
                 <p className="text-xl text-gray-800 font-semibold leading-relaxed">
@@ -484,14 +508,22 @@ const Projects = () => {
               {/* Team & Duration */}
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="flex items-center gap-4 bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
-                  <div className="text-4xl">👥</div>
+                  <div className="text-4xl">
+                    <svg viewBox="0 0 24 24" className="w-10 h-10" fill="currentColor" aria-hidden>
+                      <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-8 9a8 8 0 0116 0H4z" />
+                    </svg>
+                  </div>
                   <div>
                     <div className="text-sm text-gray-600 font-semibold">Team</div>
                     <div className="text-xl font-bold text-gray-900">{selectedProject.team}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 bg-gray-50 rounded-2xl p-6 border-2 border-gray-200">
-                  <div className="text-4xl">⏱️</div>
+                  <div className="text-4xl">
+                    <svg viewBox="0 0 24 24" className="w-10 h-10" fill="currentColor" aria-hidden>
+                      <path d="M12 8v5l3 3 1-1-2-2V8h-2zM12 2a10 10 0 100 20 10 10 0 000-20z" />
+                    </svg>
+                  </div>
                   <div>
                     <div className="text-sm text-gray-600 font-semibold">Duration</div>
                     <div className="text-xl font-bold text-gray-900">{selectedProject.duration}</div>

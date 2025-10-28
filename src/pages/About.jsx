@@ -13,6 +13,8 @@ const About = () => {
   const timelineRef = useRef(null);
   const teamRef = useRef(null);
   const [activeTab, setActiveTab] = useState(0);
+  const [isMissionFlipped, setIsMissionFlipped] = useState(false);
+  const [isVisionFlipped, setIsVisionFlipped] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -160,25 +162,41 @@ const About = () => {
 
   const values = [
     {
-      icon: '🚀',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-indigo-500" fill="currentColor" aria-hidden>
+          <path d="M12 2c.6 0 1.2.2 1.7.6l3.6 3.6c.4.4.6 1 .6 1.7 0 .6-.2 1.2-.6 1.7L13 15l-1.4 4.3c-.1.3-.4.5-.7.5-.1 0-.2 0-.3-.1L6.6 19c-.8-.4-1.5-1.1-1.9-1.9L4.1 14c0-.1 0-.2-.1-.3 0-.4.2-.7.5-.8L9 11l5-4.9c.3-.3.6-.5 1-.6.1 0 .1-.1.2-.1z" />
+        </svg>
+      ),
       title: 'Innovation',
       description: 'Pushing boundaries and embracing cutting-edge technologies to solve real-world problems.',
       color: 'from-blue-500 to-cyan-500',
     },
     {
-      icon: '🤝',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-pink-500" fill="currentColor" aria-hidden>
+          <path d="M20 8.5c0-.8-.7-1.5-1.5-1.5-.4 0-.8.1-1.1.4L12 13.3 7.6 8.9C7.3 8.6 6.9 8.5 6.5 8.5 5.7 8.5 5 9.2 5 10c0 .3.1.6.3.9l4.6 4.6c.4.4 1 .4 1.4 0l8.7-8.7c.2-.2.3-.5.3-.8z" />
+        </svg>
+      ),
       title: 'Collaboration',
       description: 'Working together across disciplines to achieve extraordinary results.',
       color: 'from-purple-500 to-pink-500',
     },
     {
-      icon: '💡',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-yellow-500" fill="currentColor" aria-hidden>
+          <path d="M12 2a8 8 0 100 16 8 8 0 000-16zm1 11h-2V7h2v6z" />
+        </svg>
+      ),
       title: 'Excellence',
       description: 'Striving for the highest standards in every project and initiative we undertake.',
       color: 'from-orange-500 to-red-500',
     },
     {
-      icon: '🌱',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-green-500" fill="currentColor" aria-hidden>
+          <path d="M12 2C9.2 5 6 6 4 9c3 0 4 3 8 3s5-3 8-3c-2-3-5.2-4-8-7zM6 18c1.8-2 4.2-3 6-3s4.2 1 6 3v4H6v-4z" />
+        </svg>
+      ),
       title: 'Growth',
       description: 'Continuous learning and development for personal and professional advancement.',
       color: 'from-green-500 to-emerald-500',
@@ -186,10 +204,84 @@ const About = () => {
   ];
 
   const stats = [
-    { number: 500, label: 'Active Members', icon: '👥' },
-    { number: 150, label: 'Projects Completed', icon: '🎯' },
-    { number: 50, label: 'Events Organized', icon: '📅' },
-    { number: 25, label: 'Industry Partners', icon: '🤝' },
+    { 
+      number: 500, 
+      label: 'Active Members', 
+      icon: <svg viewBox="0 0 64 64" className="w-14 h-14 mx-auto">
+        <defs>
+          <linearGradient id="peopleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#60a5fa" />
+            <stop offset="100%" stopColor="#a78bfa" />
+          </linearGradient>
+        </defs>
+        <circle cx="22" cy="20" r="8" fill="url(#peopleGrad)" />
+        <path d="M 22 28 Q 14 28 14 36 L 14 42 L 30 42 L 30 36 Q 30 28 22 28 Z" fill="url(#peopleGrad)" />
+        <circle cx="42" cy="22" r="7" fill="#c084fc" opacity="0.8" />
+        <path d="M 42 29 Q 35 29 35 36 L 35 42 L 49 42 L 49 36 Q 49 29 42 29 Z" fill="#c084fc" opacity="0.8" />
+        <circle cx="32" cy="34" r="6" fill="#e0e7ff" opacity="0.6" />
+        <path d="M 32 40 Q 26 40 26 46 L 26 50 L 38 50 L 38 46 Q 38 40 32 40 Z" fill="#e0e7ff" opacity="0.6" />
+      </svg>
+    },
+    { 
+      number: 150, 
+      label: 'Projects Completed', 
+      icon: <svg viewBox="0 0 64 64" className="w-14 h-14 mx-auto">
+        <defs>
+          <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f87171" />
+            <stop offset="100%" stopColor="#fb923c" />
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="28" fill="none" stroke="#fca5a5" strokeWidth="3" />
+        <circle cx="32" cy="32" r="20" fill="none" stroke="#fb923c" strokeWidth="3" />
+        <circle cx="32" cy="32" r="12" fill="none" stroke="#f87171" strokeWidth="3" />
+        <circle cx="32" cy="32" r="6" fill="url(#targetGrad)" />
+        <path d="M 32 4 L 36 28 L 32 32 L 28 28 Z" fill="#fbbf24" />
+        <circle cx="32" cy="32" r="2" fill="#fef3c7" />
+      </svg>
+    },
+    { 
+      number: 50, 
+      label: 'Events Organized', 
+      icon: <svg viewBox="0 0 64 64" className="w-14 h-14 mx-auto">
+        <defs>
+          <linearGradient id="calGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#34d399" />
+            <stop offset="100%" stopColor="#3b82f6" />
+          </linearGradient>
+        </defs>
+        <rect x="12" y="16" width="40" height="38" rx="4" fill="url(#calGrad)" />
+        <rect x="12" y="16" width="40" height="10" rx="4" fill="#1e3a8a" />
+        <rect x="18" y="10" width="4" height="10" rx="2" fill="#94a3b8" />
+        <rect x="42" y="10" width="4" height="10" rx="2" fill="#94a3b8" />
+        <circle cx="22" cy="34" r="2" fill="#fff" opacity="0.9" />
+        <circle cx="32" cy="34" r="2" fill="#fff" opacity="0.9" />
+        <circle cx="42" cy="34" r="2" fill="#fff" opacity="0.9" />
+        <circle cx="22" cy="44" r="2" fill="#fff" opacity="0.9" />
+        <circle cx="32" cy="44" r="2" fill="#fbbf24" />
+        <circle cx="42" cy="44" r="2" fill="#fff" opacity="0.9" />
+      </svg>
+    },
+    { 
+      number: 25, 
+      label: 'Industry Partners', 
+      icon: <svg viewBox="0 0 64 64" className="w-14 h-14 mx-auto">
+        <defs>
+          <linearGradient id="handshakeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#a855f7" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+        </defs>
+        <path d="M 18 35 Q 15 32 18 28 L 22 24 L 28 30 L 24 34 Z" fill="url(#handshakeGrad)" />
+        <circle cx="19" cy="30" r="3" fill="#fcd34d" />
+        <path d="M 46 35 Q 49 32 46 28 L 42 24 L 36 30 L 40 34 Z" fill="url(#handshakeGrad)" />
+        <circle cx="45" cy="30" r="3" fill="#fcd34d" />
+        <path d="M 24 34 L 28 30 L 36 30 L 40 34 L 36 38 L 28 38 Z" fill="#d946ef" opacity="0.8" />
+        <rect x="16" y="33" width="10" height="18" rx="2" fill="#c084fc" opacity="0.7" />
+        <rect x="38" y="33" width="10" height="18" rx="2" fill="#c084fc" opacity="0.7" />
+        <circle cx="32" cy="32" r="2" fill="#fbbf24" />
+      </svg>
+    },
   ];
 
   const timeline = [
@@ -197,37 +289,61 @@ const About = () => {
       year: '2020',
       title: 'Chapter Founded',
       description: 'Started with 20 passionate students and a vision to transform engineering education.',
-      icon: '🎉',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-pink-500" fill="currentColor" aria-hidden>
+          <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z" />
+        </svg>
+      ),
     },
     {
       year: '2021',
       title: 'First Hackathon',
       description: 'Organized our first 48-hour hackathon with 100+ participants from across the region.',
-      icon: '💻',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-700" fill="currentColor" aria-hidden>
+          <path d="M3 5h18v12H3zM5 7v8h14V7H5zM7 17h10v2H7z" />
+        </svg>
+      ),
     },
     {
       year: '2022',
       title: 'Industry Partnerships',
       description: 'Established collaborations with leading tech companies for mentorship and internships.',
-      icon: '🤝',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-indigo-500" fill="currentColor" aria-hidden>
+          <path d="M20 8.5c0-.8-.7-1.5-1.5-1.5-.4 0-.8.1-1.1.4L12 13.3 7.6 8.9C7.3 8.6 6.9 8.5 6.5 8.5 5.7 8.5 5 9.2 5 10c0 .3.1.6.3.9l4.6 4.6c.4.4 1 .4 1.4 0l8.7-8.7c.2-.2.3-.5.3-.8z" />
+        </svg>
+      ),
     },
     {
       year: '2023',
       title: 'Innovation Lab',
       description: 'Launched our state-of-the-art innovation lab equipped with latest technologies.',
-      icon: '🔬',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-orange-500" fill="currentColor" aria-hidden>
+          <path d="M6 20h12v2H6zM19 3a2 2 0 00-2 2v6a4 4 0 11-8 0V5a2 2 0 00-4 0v6a8 8 0 0016 0V5a2 2 0 00-2-2z" />
+        </svg>
+      ),
     },
     {
       year: '2024',
       title: 'National Recognition',
       description: 'Won Best Student Chapter Award at the National Engineering Conference.',
-      icon: '🏆',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-yellow-400" fill="currentColor" aria-hidden>
+          <path d="M12 2l2.4 4.9L20 8.2l-4 3.9.9 5.1L12 15.8 7.1 17.9 8 12.8 4 9l5.6-1.3L12 2z" />
+        </svg>
+      ),
     },
     {
       year: '2025',
       title: 'Global Expansion',
       description: 'Expanding our reach with international collaborations and exchange programs.',
-      icon: '🌍',
+      icon: (
+        <svg viewBox="0 0 24 24" className="w-6 h-6 text-cyan-500" fill="currentColor" aria-hidden>
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.9V18h-2v-1.1a6 6 0 010-9.8V6h2v.1a6 6 0 010 10.8z" />
+        </svg>
+      ),
     },
   ];
 
@@ -275,7 +391,7 @@ const About = () => {
             <div className="hero-content space-y-6">
               <div className="inline-block">
                 <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold">
-                  🌟 Transforming Engineering Education
+                  Transforming Engineering Education
                 </span>
               </div>
               
@@ -331,25 +447,6 @@ const About = () => {
                   <div className="text-xs md:text-sm text-gray-600 mt-1">Network Reach</div>
                 </div>
               </div>
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                <a
-                  href="#"
-                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-105 transition-all duration-300 flex items-center gap-2"
-                >
-                  <span>Explore Programs</span>
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
-                <a
-                  href="#"
-                  className="px-8 py-4 bg-white border-2 border-blue-600 text-blue-600 rounded-full font-bold text-lg hover:bg-blue-600 hover:text-white transform hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  Join the Network
-                </a>
-              </div>
             </div>
 
             {/* Right Side - IUCEE Image with Animations */}
@@ -399,7 +496,19 @@ const About = () => {
                 {/* Achievement Badge */}
                 <div className="absolute top-1/2 -left-4 bg-gradient-to-br from-yellow-400 to-orange-500 text-white rounded-2xl px-4 py-3 shadow-2xl transform -rotate-12 hover:rotate-0 transition-transform duration-300">
                   <div className="text-center">
-                    <div className="text-2xl">🏆</div>
+                    <div className="w-8 h-8 mx-auto">
+                      <svg viewBox="0 0 64 64" className="w-full h-full">
+                        <defs>
+                          <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#fbbf24" />
+                            <stop offset="100%" stopColor="#f59e0b" />
+                          </linearGradient>
+                        </defs>
+                        <path d="M 32 12 Q 28 12 28 16 L 28 24 Q 20 24 20 32 Q 20 36 24 38 Q 24 42 28 44 L 28 48 L 22 48 L 22 52 L 42 52 L 42 48 L 36 48 L 36 44 Q 40 42 40 38 Q 44 36 44 32 Q 44 24 36 24 L 36 16 Q 36 12 32 12 Z" fill="url(#trophyGrad)" />
+                        <rect x="26" y="50" width="12" height="6" rx="2" fill="#92400e" />
+                        <circle cx="32" cy="18" r="2" fill="#fef3c7" />
+                      </svg>
+                    </div>
                     <div className="text-xs font-bold mt-1">Award Winning</div>
                   </div>
                 </div>
@@ -412,12 +521,36 @@ const About = () => {
               {/* Floating Icons */}
               <div className="absolute top-20 -left-6 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3s' }}>
                 <div className="bg-white p-3 rounded-xl shadow-lg">
-                  <span className="text-2xl">💡</span>
+                  <svg viewBox="0 0 64 64" className="w-8 h-8">
+                    <defs>
+                      <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M 32 10 Q 24 10 20 18 Q 20 26 26 32 L 26 38 L 38 38 L 38 32 Q 44 26 44 18 Q 40 10 32 10 Z" fill="url(#bulbGrad)" />
+                    <rect x="28" y="38" width="8" height="3" fill="#78350f" />
+                    <rect x="28" y="41" width="8" height="3" rx="1" fill="#78350f" />
+                    <path d="M 28 20 Q 32 24 36 20" stroke="#fff" strokeWidth="2" fill="none" />
+                  </svg>
                 </div>
               </div>
               <div className="absolute bottom-32 -right-6 animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '3s' }}>
                 <div className="bg-white p-3 rounded-xl shadow-lg">
-                  <span className="text-2xl">🚀</span>
+                  <svg viewBox="0 0 64 64" className="w-8 h-8">
+                    <defs>
+                      <linearGradient id="floatRocketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#06b6d4" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M 32 8 L 38 28 L 38 45 L 26 45 L 26 28 Z" fill="url(#floatRocketGrad)" />
+                    <path d="M 32 8 L 38 18 L 26 18 Z" fill="#60a5fa" />
+                    <circle cx="32" cy="26" r="4" fill="#dbeafe" opacity="0.8" />
+                    <path d="M 26 35 L 20 45 L 26 45 Z" fill="#ef4444" />
+                    <path d="M 38 35 L 44 45 L 38 45 Z" fill="#ef4444" />
+                    <path d="M 28 45 L 26 52 L 28 48 L 30 54 L 32 48 L 34 54 L 36 48 L 38 52 L 38 45 Z" fill="#f97316" opacity="0.9" />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -431,10 +564,10 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-12">
             {/* Mission Flip Card */}
             <div ref={missionRef} className="mission-card">
-              <div className="flip-card h-[500px] cursor-pointer">
-                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 preserve-3d">
+              <div className="flip-card h-[550px] cursor-pointer" onClick={() => setIsMissionFlipped(!isMissionFlipped)}>
+                <div className={`flip-card-inner relative w-full h-full transition-transform duration-700 ${isMissionFlipped ? '[transform:rotateY(180deg)]' : ''}`} style={{ transformStyle: 'preserve-3d' }}>
                   {/* Front Side - Image with Brief Description */}
-                  <div className="flip-card-front absolute w-full h-full backface-hidden rounded-3xl overflow-hidden shadow-2xl">
+                  <div className="flip-card-front absolute w-full h-full rounded-3xl overflow-hidden shadow-2xl" style={{ backfaceVisibility: 'hidden' }}>
                     <div className="relative w-full h-full">
                       {/* 4K Mission Image */}
                       <img
@@ -442,12 +575,14 @@ const About = () => {
                         alt="Our Mission - Team Collaboration"
                         className="w-full h-full object-cover"
                       />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-800/70 to-transparent"></div>
                       
                       {/* Content on Image */}
                       <div className="absolute bottom-0 left-0 right-0 p-8">
-                        <div className="text-6xl mb-4">🎯</div>
+                        <div className="text-6xl mb-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-16 h-16 text-yellow-400" fill="currentColor" aria-hidden>
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-2v4h2v-4zm0-8h-2v6h2V5z" />
+                          </svg>
+                        </div>
                         <h2 className="text-4xl font-bold text-white mb-4">Our Mission</h2>
                         <p className="text-lg text-blue-100 leading-relaxed mb-4">
                           Fostering innovation and excellence through collaborative learning...
@@ -463,22 +598,26 @@ const About = () => {
                   </div>
 
                   {/* Back Side - Full Description */}
-                  <div className="flip-card-back absolute w-full h-full backface-hidden rounded-3xl bg-gradient-to-br from-blue-500 to-cyan-500 p-8 text-white shadow-2xl rotate-y-180">
+                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
                     <div className="flex flex-col h-full justify-center">
-                      <div className="text-6xl mb-6">🎯</div>
-                      <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
-                      <div className="space-y-4 text-lg leading-relaxed text-blue-50">
+                      <div className="text-6xl mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-16 h-16 text-yellow-400" fill="currentColor" aria-hidden>
+                          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-2v4h2v-4zm0-8h-2v6h2V5z" />
+                        </svg>
+                      </div>
+                      <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Mission</h2>
+                      <div className="space-y-4 text-lg leading-relaxed text-gray-700">
                         <p>
-                          To foster a <strong className="text-white">vibrant community</strong> of engineering students and faculty dedicated to advancing technology, promoting innovation, and creating positive impact through collaborative learning and hands-on projects.
+                          To foster a <strong className="text-gray-900">vibrant community</strong> of engineering students and faculty dedicated to advancing technology, promoting innovation, and creating positive impact through collaborative learning and hands-on projects.
                         </p>
                         <p>
-                          We empower students with <strong className="text-white">practical skills</strong>, industry exposure, and mentorship opportunities that bridge the gap between academic knowledge and real-world applications.
+                          We empower students with <strong className="text-gray-900">practical skills</strong>, industry exposure, and mentorship opportunities that bridge the gap between academic knowledge and real-world applications.
                         </p>
                         <p>
-                          Through our initiatives, we aim to cultivate <strong className="text-white">future leaders</strong> who will drive technological advancement and contribute meaningfully to society.
+                          Through our initiatives, we aim to cultivate <strong className="text-gray-900">future leaders</strong> who will drive technological advancement and contribute meaningfully to society.
                         </p>
                       </div>
-                      <div className="mt-6 flex items-center gap-2 text-white/80 text-sm">
+                      <div className="mt-6 flex items-center gap-2 text-gray-600 text-sm">
                         <span>Click to flip back</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -492,10 +631,10 @@ const About = () => {
 
             {/* Vision Flip Card */}
             <div ref={visionRef} className="vision-card">
-              <div className="flip-card h-[500px] cursor-pointer">
-                <div className="flip-card-inner relative w-full h-full transition-transform duration-700 preserve-3d">
+              <div className="flip-card h-[550px] cursor-pointer" onClick={() => setIsVisionFlipped(!isVisionFlipped)}>
+                <div className={`flip-card-inner relative w-full h-full transition-transform duration-700 ${isVisionFlipped ? '[transform:rotateY(180deg)]' : ''}`} style={{ transformStyle: 'preserve-3d' }}>
                   {/* Front Side - Image with Brief Description */}
-                  <div className="flip-card-front absolute w-full h-full backface-hidden rounded-3xl overflow-hidden shadow-2xl">
+                  <div className="flip-card-front absolute w-full h-full rounded-3xl overflow-hidden shadow-2xl" style={{ backfaceVisibility: 'hidden' }}>
                     <div className="relative w-full h-full">
                       {/* 4K Vision Image */}
                       <img
@@ -503,12 +642,23 @@ const About = () => {
                         alt="Our Vision - Future Technology"
                         className="w-full h-full object-cover"
                       />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-purple-900/95 via-purple-800/70 to-transparent"></div>
                       
                       {/* Content on Image */}
                       <div className="absolute bottom-0 left-0 right-0 p-8">
-                        <div className="text-6xl mb-4">👁️</div>
+                        <div className="w-16 h-16 mb-4">
+                          <svg viewBox="0 0 64 64" className="w-full h-full">
+                            <defs>
+                              <linearGradient id="eyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#a78bfa" />
+                                <stop offset="100%" stopColor="#ec4899" />
+                              </linearGradient>
+                            </defs>
+                            <ellipse cx="32" cy="32" rx="28" ry="18" fill="none" stroke="url(#eyeGrad)" strokeWidth="3" />
+                            <circle cx="32" cy="32" r="12" fill="url(#eyeGrad)" />
+                            <circle cx="32" cy="32" r="7" fill="#1e293b" />
+                            <circle cx="35" cy="29" r="3" fill="#fff" opacity="0.9" />
+                          </svg>
+                        </div>
                         <h2 className="text-4xl font-bold text-white mb-4">Our Vision</h2>
                         <p className="text-lg text-purple-100 leading-relaxed mb-4">
                           Leading globally in technical excellence and innovation...
@@ -524,22 +674,35 @@ const About = () => {
                   </div>
 
                   {/* Back Side - Full Description */}
-                  <div className="flip-card-back absolute w-full h-full backface-hidden rounded-3xl bg-gradient-to-br from-purple-500 to-pink-500 p-8 text-white shadow-2xl rotate-y-180">
+                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
                     <div className="flex flex-col h-full justify-center">
-                      <div className="text-6xl mb-6">👁️</div>
-                      <h2 className="text-4xl font-bold mb-6">Our Vision</h2>
-                      <div className="space-y-4 text-lg leading-relaxed text-purple-50">
+                      <div className="w-16 h-16 mb-6">
+                        <svg viewBox="0 0 64 64" className="w-full h-full">
+                          <defs>
+                            <linearGradient id="eyeBackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#a78bfa" />
+                              <stop offset="100%" stopColor="#ec4899" />
+                            </linearGradient>
+                          </defs>
+                          <ellipse cx="32" cy="32" rx="28" ry="18" fill="none" stroke="url(#eyeBackGrad)" strokeWidth="3" />
+                          <circle cx="32" cy="32" r="12" fill="url(#eyeBackGrad)" />
+                          <circle cx="32" cy="32" r="7" fill="#1e293b" />
+                          <circle cx="35" cy="29" r="3" fill="#fff" opacity="0.9" />
+                        </svg>
+                      </div>
+                      <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Vision</h2>
+                      <div className="space-y-4 text-lg leading-relaxed text-gray-700">
                         <p>
-                          To be the <strong className="text-white">leading student chapter</strong> recognized globally for excellence in technical education, innovation, and developing future-ready engineers who drive technological advancement and societal progress.
+                          To be the <strong className="text-gray-900">leading student chapter</strong> recognized globally for excellence in technical education, innovation, and developing future-ready engineers who drive technological advancement and societal progress.
                         </p>
                         <p>
-                          We envision a world where our members become <strong className="text-white">pioneering innovators</strong>, creating solutions that transform industries and improve lives across the globe.
+                          We envision a world where our members become <strong className="text-gray-900">pioneering innovators</strong>, creating solutions that transform industries and improve lives across the globe.
                         </p>
                         <p>
-                          Our goal is to establish a <strong className="text-white">legacy of excellence</strong> that inspires generations of engineers to push boundaries and achieve the extraordinary.
+                          Our goal is to establish a <strong className="text-gray-900">legacy of excellence</strong> that inspires generations of engineers to push boundaries and achieve the extraordinary.
                         </p>
                       </div>
-                      <div className="mt-6 flex items-center gap-2 text-white/80 text-sm">
+                      <div className="mt-6 flex items-center gap-2 text-gray-600 text-sm">
                         <span>Click to flip back</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -606,7 +769,28 @@ const About = () => {
                     <div className="w-1.5 h-16 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full group-hover:h-20 group-hover:w-2 transition-all duration-300 shadow-lg"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="text-4xl animate-bounce" style={{ animationDuration: '2s' }}>🚀</span>
+                        <div className="w-10 h-10 animate-bounce" style={{ animationDuration: '2s' }}>
+                          <svg viewBox="0 0 64 64" className="w-full h-full">
+                            <defs>
+                              <linearGradient id="rocketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#3b82f6" />
+                                <stop offset="100%" stopColor="#06b6d4" />
+                              </linearGradient>
+                            </defs>
+                            {/* Rocket body */}
+                            <path d="M 32 8 L 38 28 L 38 45 L 26 45 L 26 28 Z" fill="url(#rocketGrad)" />
+                            {/* Rocket nose */}
+                            <path d="M 32 8 L 38 18 L 26 18 Z" fill="#60a5fa" />
+                            {/* Window */}
+                            <circle cx="32" cy="26" r="4" fill="#dbeafe" opacity="0.8" />
+                            {/* Fins */}
+                            <path d="M 26 35 L 20 45 L 26 45 Z" fill="#ef4444" />
+                            <path d="M 38 35 L 44 45 L 38 45 Z" fill="#ef4444" />
+                            {/* Flames */}
+                            <path d="M 28 45 L 26 52 L 28 48 L 30 54 L 32 48 L 34 54 L 36 48 L 38 52 L 38 45 Z" fill="#f97316" opacity="0.9" />
+                            <path d="M 30 48 L 32 56 L 34 48 Z" fill="#fbbf24" opacity="0.8" />
+                          </svg>
+                        </div>
                         <h3 className="text-2xl md:text-3xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
                           Innovation
                         </h3>
@@ -620,7 +804,7 @@ const About = () => {
                       <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
                         <div className="mt-4 pl-6 border-l-4 border-blue-500 bg-blue-50 rounded-r-lg p-4">
                           <p className="text-gray-700 leading-relaxed font-medium mb-2">
-                            🌟 <strong>Pushing boundaries</strong> and embracing cutting-edge technologies to solve real-world problems with creative solutions.
+                            <strong>Pushing boundaries</strong> and embracing cutting-edge technologies to solve real-world problems with creative solutions.
                           </p>
                           <p className="text-gray-600 text-sm leading-relaxed">
                             We foster a culture where <strong className="text-blue-700">bold ideas thrive</strong>, experimentation is encouraged, and failure is just another step toward breakthrough innovation.
@@ -637,7 +821,31 @@ const About = () => {
                     <div className="w-1.5 h-16 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full group-hover:h-20 group-hover:w-2 transition-all duration-300 shadow-lg"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="text-4xl animate-pulse" style={{ animationDuration: '2s' }}>🤝</span>
+                        <div className="w-10 h-10 animate-pulse" style={{ animationDuration: '2s' }}>
+                          <svg viewBox="0 0 64 64" className="w-full h-full">
+                            <defs>
+                              <linearGradient id="handGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#a855f7" />
+                                <stop offset="100%" stopColor="#ec4899" />
+                              </linearGradient>
+                            </defs>
+                            {/* Left hand */}
+                            <path d="M 18 35 Q 15 32 18 28 L 22 24 L 28 30 L 24 34 Z" fill="url(#handGrad)" />
+                            <circle cx="19" cy="30" r="3" fill="#fcd34d" />
+                            {/* Right hand */}
+                            <path d="M 46 35 Q 49 32 46 28 L 42 24 L 36 30 L 40 34 Z" fill="url(#handGrad)" />
+                            <circle cx="45" cy="30" r="3" fill="#fcd34d" />
+                            {/* Handshake middle */}
+                            <path d="M 24 34 L 28 30 L 36 30 L 40 34 L 36 38 L 28 38 Z" fill="#d946ef" opacity="0.8" />
+                            {/* Arms */}
+                            <rect x="16" y="33" width="10" height="18" rx="2" fill="#c084fc" opacity="0.7" />
+                            <rect x="38" y="33" width="10" height="18" rx="2" fill="#c084fc" opacity="0.7" />
+                            {/* Sparkles for unity */}
+                            <circle cx="32" cy="32" r="2" fill="#fbbf24" />
+                            <path d="M 12 22 L 14 24 L 12 26 L 10 24 Z" fill="#fbbf24" opacity="0.8" />
+                            <path d="M 52 22 L 54 24 L 52 26 L 50 24 Z" fill="#fbbf24" opacity="0.8" />
+                          </svg>
+                        </div>
                         <h3 className="text-2xl md:text-3xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
                           Collaboration
                         </h3>
@@ -651,7 +859,7 @@ const About = () => {
                       <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
                         <div className="mt-4 pl-6 border-l-4 border-purple-500 bg-purple-50 rounded-r-lg p-4">
                           <p className="text-gray-700 leading-relaxed font-medium mb-2">
-                            💪 <strong>Working together</strong> across disciplines to achieve extraordinary results and foster a culture of teamwork.
+                            <strong>Working together</strong> across disciplines to achieve extraordinary results and foster a culture of teamwork.
                           </p>
                           <p className="text-gray-600 text-sm leading-relaxed">
                             Our strength lies in <strong className="text-purple-700">unity and diversity</strong> - bringing together different perspectives, skills, and experiences to create something greater than the sum of its parts.
@@ -668,7 +876,32 @@ const About = () => {
                     <div className="w-1.5 h-16 bg-gradient-to-b from-orange-500 to-red-500 rounded-full group-hover:h-20 group-hover:w-2 transition-all duration-300 shadow-lg"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="text-4xl" style={{ animation: 'bounce 2s infinite' }}>📚</span>
+                        <div className="w-10 h-10" style={{ animation: 'bounce 2s infinite' }}>
+                          <svg viewBox="0 0 64 64" className="w-full h-full">
+                            <defs>
+                              <linearGradient id="bookGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#f97316" />
+                                <stop offset="100%" stopColor="#ef4444" />
+                              </linearGradient>
+                            </defs>
+                            {/* Bottom book */}
+                            <rect x="18" y="42" width="28" height="8" rx="1" fill="#dc2626" />
+                            <line x1="32" y1="42" x2="32" y2="50" stroke="#7f1d1d" strokeWidth="1" />
+                            {/* Middle book */}
+                            <rect x="16" y="32" width="32" height="8" rx="1" fill="#f97316" />
+                            <line x1="32" y1="32" x2="32" y2="40" stroke="#9a3412" strokeWidth="1" />
+                            {/* Top book (open) */}
+                            <path d="M 20 22 L 20 32 L 32 28 L 44 32 L 44 22 L 32 18 Z" fill="url(#bookGrad)" />
+                            <path d="M 32 18 L 32 28" stroke="#7c2d12" strokeWidth="1.5" />
+                            {/* Pages */}
+                            <path d="M 24 24 L 30 22.5 M 24 26 L 30 24.5 M 24 28 L 30 26.5" stroke="#fff" strokeWidth="0.8" opacity="0.6" />
+                            <path d="M 40 24 L 34 22.5 M 40 26 L 34 24.5 M 40 28 L 34 26.5" stroke="#fff" strokeWidth="0.8" opacity="0.6" />
+                            {/* Graduation cap on top */}
+                            <path d="M 32 10 L 42 14 L 32 18 L 22 14 Z" fill="#1e293b" />
+                            <path d="M 42 14 L 44 14 L 44 20 L 43 21" stroke="#1e293b" strokeWidth="1.5" fill="none" />
+                            <circle cx="43" cy="21" r="1" fill="#fbbf24" />
+                          </svg>
+                        </div>
                         <h3 className="text-2xl md:text-3xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors duration-300">
                           Education
                         </h3>
@@ -682,7 +915,7 @@ const About = () => {
                       <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
                         <div className="mt-4 pl-6 border-l-4 border-orange-500 bg-orange-50 rounded-r-lg p-4">
                           <p className="text-gray-700 leading-relaxed font-medium mb-2">
-                            🎓 <strong>Committed to continuous learning</strong>, knowledge sharing, and empowering students with practical skills for the future.
+                            <strong>Committed to continuous learning</strong>, knowledge sharing, and empowering students with practical skills for the future.
                           </p>
                           <p className="text-gray-600 text-sm leading-relaxed">
                             We believe education transforms lives. Through <strong className="text-orange-700">hands-on workshops, mentorship programs, and industry exposure</strong>, we prepare students to excel in the real world.
@@ -699,7 +932,34 @@ const About = () => {
                     <div className="w-1.5 h-16 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full group-hover:h-20 group-hover:w-2 transition-all duration-300 shadow-lg"></div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className="text-4xl animate-pulse" style={{ animationDuration: '1.5s' }}>⚡</span>
+                        <div className="w-10 h-10 animate-pulse" style={{ animationDuration: '1.5s' }}>
+                          <svg viewBox="0 0 64 64" className="w-full h-full">
+                            <defs>
+                              <linearGradient id="teamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#10b981" />
+                                <stop offset="100%" stopColor="#14b8a6" />
+                              </linearGradient>
+                              <radialGradient id="energyGlow">
+                                <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.8" />
+                                <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
+                              </radialGradient>
+                            </defs>
+                            {/* Energy glow */}
+                            <circle cx="32" cy="32" r="20" fill="url(#energyGlow)" />
+                            {/* Lightning bolt */}
+                            <path d="M 32 12 L 26 32 L 34 32 L 28 52 L 42 28 L 32 28 Z" fill="url(#teamGrad)" stroke="#065f46" strokeWidth="1.5" />
+                            {/* Inner highlights */}
+                            <path d="M 30 18 L 28 28 L 32 28 Z" fill="#fbbf24" opacity="0.6" />
+                            {/* Energy sparks */}
+                            <circle cx="22" cy="24" r="2" fill="#fbbf24" opacity="0.8" />
+                            <circle cx="42" cy="24" r="2" fill="#fbbf24" opacity="0.8" />
+                            <circle cx="38" cy="40" r="2" fill="#fbbf24" opacity="0.8" />
+                            <circle cx="26" cy="40" r="2" fill="#fbbf24" opacity="0.8" />
+                            {/* Small stars */}
+                            <path d="M 18 16 L 19 18 L 18 20 L 16 18 Z" fill="#34d399" opacity="0.9" />
+                            <path d="M 46 16 L 47 18 L 46 20 L 44 18 Z" fill="#34d399" opacity="0.9" />
+                          </svg>
+                        </div>
                         <h3 className="text-2xl md:text-3xl font-bold text-gray-800 group-hover:text-green-600 transition-colors duration-300">
                           Teamwork
                         </h3>
@@ -713,7 +973,7 @@ const About = () => {
                       <div className="max-h-0 overflow-hidden group-hover:max-h-48 transition-all duration-500 ease-in-out">
                         <div className="mt-4 pl-6 border-l-4 border-green-500 bg-green-50 rounded-r-lg p-4">
                           <p className="text-gray-700 leading-relaxed font-medium mb-2">
-                            🌟 <strong>Building strong relationships</strong> and leveraging diverse talents to accomplish shared goals and drive success.
+                            <strong>Building strong relationships</strong> and leveraging diverse talents to accomplish shared goals and drive success.
                           </p>
                           <p className="text-gray-600 text-sm leading-relaxed">
                             Success is a team sport. We cultivate an environment where <strong className="text-green-700">every voice matters, every contribution counts</strong>, and collective achievement outshines individual glory.
@@ -728,7 +988,22 @@ const About = () => {
               {/* Decorative Element */}
               <div className="mt-10 pt-6 border-t-2 border-gray-200">
                 <div className="flex items-center gap-4 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-xl p-4">
-                  <div className="text-3xl">🎯</div>
+                  <div className="w-12 h-12 flex-shrink-0">
+                    <svg viewBox="0 0 64 64" className="w-full h-full">
+                      <defs>
+                        <linearGradient id="goalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f87171" />
+                          <stop offset="100%" stopColor="#fb923c" />
+                        </linearGradient>
+                      </defs>
+                      <circle cx="32" cy="32" r="28" fill="none" stroke="#fca5a5" strokeWidth="3" />
+                      <circle cx="32" cy="32" r="20" fill="none" stroke="#fb923c" strokeWidth="3" />
+                      <circle cx="32" cy="32" r="12" fill="none" stroke="#f87171" strokeWidth="3" />
+                      <circle cx="32" cy="32" r="6" fill="url(#goalGrad)" />
+                      <path d="M 32 4 L 36 28 L 32 32 L 28 28 Z" fill="#fbbf24" />
+                      <circle cx="32" cy="32" r="2" fill="#fef3c7" />
+                    </svg>
+                  </div>
                   <div>
                     <p className="text-sm font-bold text-gray-800 mb-1">
                       Ready to Experience Excellence?
@@ -762,7 +1037,7 @@ const About = () => {
                 key={index}
                 className="text-center bg-white/10 backdrop-blur-lg rounded-2xl p-8 transform hover:scale-110 transition-transform duration-300"
               >
-                <div className="text-5xl mb-4">{stat.icon}</div>
+                <div className="mb-4">{stat.icon}</div>
                 <div
                   className="stat-number text-5xl font-bold text-white mb-2"
                   data-target={stat.number}
@@ -996,7 +1271,10 @@ const About = () => {
           <div className="text-center mb-16">
             <div className="inline-block mb-4">
               <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold">
-                👥 Leadership
+                <svg viewBox="0 0 24 24" className="inline-block w-4 h-4 mr-2 align-middle" fill="currentColor" aria-hidden>
+                  <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-8 9a8 8 0 0116 0H4z" />
+                </svg>
+                Leadership
               </span>
             </div>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
@@ -1045,7 +1323,11 @@ const About = () => {
                 <div className="p-8 bg-gradient-to-br from-blue-50 to-white">
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="text-2xl">🎓</div>
+                      <div className="text-2xl">
+                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-blue-700" fill="currentColor" aria-hidden>
+                          <path d="M12 2L4 7v2c0 5 3.6 9.7 8 11 4.4-1.3 8-6 8-11V7l-8-5zM6 12v-1l6 3 6-3v1l-6 3-6-3z" />
+                        </svg>
+                      </div>
                       <div>
                         <p className="text-gray-700 leading-relaxed">
                           <strong className="text-blue-700">Visionary Leader</strong> with extensive experience in engineering education and institutional excellence.
@@ -1053,7 +1335,11 @@ const About = () => {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="text-2xl">🌟</div>
+                      <div className="text-2xl">
+                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-yellow-400" fill="currentColor" aria-hidden>
+                          <path d="M12 2l2.4 4.9L20 8.2l-4 3.9.9 5.1L12 15.8 7.1 17.9 8 12.8 4 9l5.6-1.3L12 2z" />
+                        </svg>
+                      </div>
                       <div>
                         <p className="text-gray-600 text-sm">
                           Driving innovation and academic excellence at VVIT, fostering world-class engineering talent.
@@ -1116,7 +1402,11 @@ const About = () => {
                 <div className="p-8 bg-gradient-to-br from-purple-50 to-white">
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="text-2xl">🌍</div>
+                      <div className="text-2xl">
+                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-cyan-500" fill="currentColor" aria-hidden>
+                          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.9V18h-2v-1.1a6 6 0 010-9.8V6h2v.1a6 6 0 010 10.8z" />
+                        </svg>
+                      </div>
                       <div>
                         <p className="text-gray-700 leading-relaxed">
                           <strong className="text-purple-700">Global Pioneer</strong> in engineering education transformation and international collaboration.
@@ -1124,7 +1414,11 @@ const About = () => {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="text-2xl">🚀</div>
+                      <div className="text-2xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-indigo-500" fill="currentColor" aria-hidden>
+                          <path d="M12 2c.6 0 1.2.2 1.7.6l3.6 3.6c.4.4.6 1 .6 1.7 0 .6-.2 1.2-.6 1.7L13 15l-1.4 4.3c-.1.3-.4.5-.7.5-.1 0-.2 0-.3-.1L6.6 19c-.8-.4-1.5-1.1-1.9-1.9L4.1 14c0-.1 0-.2-.1-.3 0-.4.2-.7.5-.8L9 11l5-4.9c.3-.3.6-.5 1-.6.1 0 .1-.1.2-.1z" />
+                        </svg>
+                      </div>
                       <div>
                         <p className="text-gray-600 text-sm">
                           Leading IUCEE's mission to revolutionize engineering education across 500+ institutions globally.
@@ -1155,7 +1449,9 @@ const About = () => {
           <div className="mt-16 text-center">
             <div className="inline-block bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl px-8 py-6 max-w-2xl">
               <p className="text-gray-700 leading-relaxed">
-                <span className="text-2xl mr-2">🤝</span>
+                <svg viewBox="0 0 24 24" className="inline-block w-5 h-5 mr-2 align-middle text-indigo-500" fill="currentColor" aria-hidden>
+                  <path d="M20 8.5c0-.8-.7-1.5-1.5-1.5-.4 0-.8.1-1.1.4L12 13.3 7.6 8.9C7.3 8.6 6.9 8.5 6.5 8.5 5.7 8.5 5 9.2 5 10c0 .3.1.6.3.9l4.6 4.6c.4.4 1 .4 1.4 0l8.7-8.7c.2-.2.3-.5.3-.8z" />
+                </svg>
                 <strong className="text-gray-900">United in Vision:</strong> Our leaders bring decades of combined experience in shaping the future of engineering education and empowering the next generation of innovators.
               </p>
             </div>

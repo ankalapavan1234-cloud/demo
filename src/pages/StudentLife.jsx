@@ -539,7 +539,7 @@ const StudentLife = () => {
       {/* Time Capsule Hero Section */}
       <section 
         ref={heroRef} 
-        className="relative min-h-screen pt-48 md:pt-56 pb-20 overflow-hidden bg-gradient-to-b from-indigo-950 via-indigo-900 to-purple-900"
+        className="relative min-h-screen pt-40 pb-20 overflow-hidden bg-gradient-to-b from-indigo-950 via-indigo-900 to-purple-900"
         style={{ perspective: '1000px' }}
       >
         {/* Space-time tunnel background */}

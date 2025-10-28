@@ -8,12 +8,11 @@ gsap.registerPlugin(ScrollTrigger);
 const Projects = () => {
   const navigate = useNavigate();
   const heroRef = useRef(null);
-  const tunnelRef = useRef(null);
-  const orbsRef = useRef([]);
-  const timelineRef = useRef(null);
+  const layerBg = useRef(null);
+  const layerMid = useRef(null);
+  const layerFront = useRef(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const [hoveredOrb, setHoveredOrb] = useState(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Projects data
   const projects = [

@@ -423,7 +423,11 @@ const Team = () => {
         {/* Join Team CTA */}
         <div className="mt-20 text-center">
           <div className="glass-effect rounded-3xl p-8 md:p-12 max-w-3xl mx-auto">
-            <div className="text-6xl mb-6">🚀</div>
+            <div className="text-6xl mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-14 h-14 text-indigo-500" fill="currentColor" aria-hidden>
+                <path d="M12 2c.6 0 1.2.2 1.7.6l3.6 3.6c.4.4.6 1 .6 1.7 0 .6-.2 1.2-.6 1.7L13 15l-1.4 4.3c-.1.3-.4.5-.7.5-.1 0-.2 0-.3-.1L6.6 19c-.8-.4-1.5-1.1-1.9-1.9L4.1 14c0-.1 0-.2-.1-.3 0-.4.2-.7.5-.8L9 11l5-4.9c.3-.3.6-.5 1-.6.1 0 .1-.1.2-.1z" />
+              </svg>
+            </div>
             <h3 className="text-3xl font-bold mb-4 gradient-text">
               Join Our Team
             </h3>

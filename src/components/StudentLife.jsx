@@ -215,7 +215,9 @@ const StudentLife = () => {
         {/* Section Title */}
         <div ref={titleRef} className="text-center mb-20">
           <div className="inline-block mb-6">
-            <span className="text-7xl">🎓</span>
+            <svg viewBox="0 0 24 24" className="w-16 h-16 inline-block" fill="currentColor" aria-hidden>
+              <path d="M12 2L3 7l9 5 9-5-9-5zm0 7.5L6.2 7 12 4.5 17.8 7 12 9.5zM5 9v6c0 3 3 5 7 5s7-2 7-5V9" />
+            </svg>
           </div>
           <h2 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold mb-6 text-white">
             Student <span className="gradient-text">Life</span>

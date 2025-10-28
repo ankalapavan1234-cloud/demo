@@ -12,6 +12,51 @@ const Events = () => {
   const pastRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('upcoming');
+  
+  // Counter animation states
+  const [eventsCount, setEventsCount] = useState(0);
+  const [participantsCount, setParticipantsCount] = useState(0);
+  const [categoriesCount, setCategoriesCount] = useState(0);
+  const countersRef = useRef({ events: 0, participants: 0, categories: 0 });
+  const hasCountedRef = useRef(false);
+
+  useEffect(() => {
+    // Setup IntersectionObserver to start counters when hero is visible
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasCountedRef.current) {
+          hasCountedRef.current = true;
+          // targets
+          const targetEvents = upcomingEvents.length;
+          const targetParticipants = upcomingEvents.reduce((total, event) => {
+            const num = parseInt(event.participants);
+            return total + (isNaN(num) ? 0 : num);
+          }, 0);
+          const targetCategories = new Set(upcomingEvents.map(e => e.category)).size;
+
+          // simple easing counter using requestAnimationFrame
+          const animate = (key, setter, start, end, duration = 900) => {
+            const startTime = performance.now();
+            const step = (now) => {
+              const t = Math.min(1, (now - startTime) / duration);
+              const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+              const value = Math.floor(start + (end - start) * eased);
+              setter(value);
+              if (t < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          };
+
+          animate('events', setEventsCount, 0, targetEvents);
+          animate('participants', setParticipantsCount, 0, targetParticipants);
+          animate('categories', setCategoriesCount, 0, targetCategories);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    if (heroRef.current) obs.observe(heroRef.current);
+    return () => obs.disconnect();
+  }, [upcomingEvents]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -221,79 +266,126 @@ const Events = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative pt-32 pb-24 md:pt-40 md:pb-32 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 overflow-hidden">
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-yellow-300 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-cyan-300 rounded-full blur-3xl"></div>
+      <section ref={heroRef} className="relative pt-32 pb-12 overflow-hidden bg-white">
+        {/* Subtle Dotted Grid Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
+            backgroundSize: '24px 24px'
+          }}></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-6xl mx-auto">
-            {/* Main Heading */}
-            <h1 className="hero-title text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-tight">
+        {/* Abstract Line-Art Illustration - Background */}
+        <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
+          <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            {/* Flowing organic lines */}
+            <path d="M0 400 Q200 200 400 400 T800 400 T1200 400" stroke="#9333EA" strokeWidth="2" />
+            <path d="M0 500 Q300 300 600 500 T1200 500" stroke="#3B82F6" strokeWidth="1.5" />
+            <path d="M200 0 Q200 200 400 200 T600 200 T800 200" stroke="#EC4899" strokeWidth="1.5" />
+            
+            {/* Scattered circles */}
+            <circle cx="150" cy="200" r="30" stroke="#A855F7" strokeWidth="2" fill="none" />
+            <circle cx="950" cy="150" r="45" stroke="#3B82F6" strokeWidth="2" fill="none" />
+            <circle cx="700" cy="650" r="35" stroke="#EC4899" strokeWidth="2" fill="none" />
+            
+            {/* Grid patterns */}
+            <line x1="100" y1="100" x2="250" y2="100" stroke="#9333EA" strokeWidth="1.5" strokeDasharray="5 5" />
+            <line x1="100" y1="100" x2="100" y2="250" stroke="#9333EA" strokeWidth="1.5" strokeDasharray="5 5" />
+            <line x1="900" y1="600" x2="1050" y2="600" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="5 5" />
+            <line x1="1050" y1="500" x2="1050" y2="650" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="5 5" />
+            
+            {/* Angular geometric shapes */}
+            <polygon points="500,50 520,80 500,110 480,80" stroke="#EC4899" strokeWidth="2" fill="none" />
+            <rect x="800" y="450" width="60" height="60" stroke="#A855F7" strokeWidth="2" fill="none" transform="rotate(45 830 480)" />
+            
+            {/* Curved connecting lines */}
+            <path d="M300 150 Q400 250 500 150" stroke="#9333EA" strokeWidth="1.5" fill="none" />
+            <path d="M600 550 Q700 450 800 550" stroke="#3B82F6" strokeWidth="1.5" fill="none" />
+          </svg>
+        </div>
+
+        {/* Top Left - Subtle Geometric Shapes */}
+        <div className="absolute top-32 left-8 opacity-15 z-0">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="8" stroke="#9333EA" strokeWidth="2" />
+            <rect x="50" y="10" width="15" height="15" stroke="#9333EA" strokeWidth="2" />
+            <path d="M40 50L45 40L50 50L40 50Z" stroke="#9333EA" strokeWidth="2" />
+            <line x1="15" y1="60" x2="25" y2="60" stroke="#9333EA" strokeWidth="3" />
+            <line x1="20" y1="55" x2="20" y2="65" stroke="#9333EA" strokeWidth="3" />
+          </svg>
+        </div>
+
+        {/* Large Abstract Wave - Bottom Right - Enhanced Colors */}
+        <div className="absolute bottom-0 right-0 w-2/3 h-96 pointer-events-none opacity-70 z-0">
+          <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <defs>
+              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{ stopColor: '#9333EA', stopOpacity: 1 }} />
+                <stop offset="50%" style={{ stopColor: '#A855F7', stopOpacity: 0.95 }} />
+                <stop offset="100%" style={{ stopColor: '#EC4899', stopOpacity: 1 }} />
+              </linearGradient>
+              <linearGradient id="waveAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 0.3 }} />
+                <stop offset="100%" style={{ stopColor: '#8B5CF6', stopOpacity: 0.3 }} />
+              </linearGradient>
+            </defs>
+            <path 
+              d="M800 400 L800 250 Q700 150 600 200 Q500 250 400 180 Q300 110 200 220 Q100 330 0 280 L0 400 Z" 
+              fill="url(#waveGradient)"
+            />
+            {/* Additional wave layer for depth */}
+            <path 
+              d="M800 400 L800 280 Q700 200 600 240 Q500 280 400 220 Q300 160 200 260 Q100 360 0 310 L0 400 Z" 
+              fill="url(#waveAccent)"
+            />
+          </svg>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            
+            {/* Main Headline */}
+            <h1 className="hero-title text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
               Upcoming Tech Events & Workshops
             </h1>
             
-            {/* Subheading */}
-            <p className="hero-subtitle text-xl md:text-2xl lg:text-3xl text-white font-bold mb-8 leading-relaxed">
-              Expand Your Skills. Build Your Network. Shape Your Future.
-            </p>
-            
-            {/* Impressive Description */}
-            <p className="text-base md:text-lg text-white/95 font-medium leading-relaxed max-w-4xl mx-auto mb-6">
-              Join industry-leading workshops, intensive hackathons, and professional conferences designed to transform theoretical knowledge into practical expertise. Connect with innovators, learn from experts, and accelerate your career in technology.
+            {/* Description Paragraph */}
+            <p className="hero-subtitle text-base lg:text-lg text-gray-700 leading-relaxed mb-6">
+              Expand your skills, build your network, and shape your future. Join industry-leading workshops, intensive hackathons, and professional conferences designed to accelerate your career in technology.
             </p>
 
-            {/* Key Stats */}
-            <div className="flex flex-wrap justify-center gap-8 md:gap-12 mt-12">
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black text-white mb-2">1000+</div>
-                <div className="text-sm md:text-base text-white/90 font-bold uppercase tracking-wider">Annual Participants</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black text-white mb-2">50+</div>
-                <div className="text-sm md:text-base text-white/90 font-bold uppercase tracking-wider">Events Per Year</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl md:text-5xl font-black text-white mb-2">100%</div>
-                <div className="text-sm md:text-base text-white/90 font-bold uppercase tracking-wider">Industry Expert Led</div>
-              </div>
+            {/* CTA Button */}
+            <div>
+              <button className="px-8 py-3 bg-purple-600 text-white text-base font-semibold rounded-xl hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl">
+                View All Events
+              </button>
             </div>
           </div>
-        </div>
-
-        {/* Decorative Bottom Wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V120Z" fill="#F9FAFB"/>
-          </svg>
         </div>
       </section>
 
       {/* Tab Navigation */}
-      <section className="py-8 bg-white border-b-2 border-gray-300 sticky top-0 z-40 shadow-sm">
-        <div className="container mx-auto px-4">
+      <section className="py-6 bg-gray-50 border-b border-gray-200 sticky top-20 z-40">
+        <div className="container mx-auto px-6">
           <div className="flex justify-center gap-4">
             <button
               onClick={() => setActiveTab('upcoming')}
-              className={`px-8 py-3 font-bold text-base rounded-lg border-2 ${
+              className={`px-8 py-3 font-semibold text-base rounded-lg transition-all ${
                 activeTab === 'upcoming'
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-400'
               }`}
             >
               Upcoming Events ({upcomingEvents.length})
             </button>
             <button
               onClick={() => setActiveTab('past')}
-              className={`px-8 py-3 font-bold text-base rounded-lg border-2 ${
+              className={`px-8 py-3 font-semibold text-base rounded-lg transition-all ${
                 activeTab === 'past'
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-400'
               }`}
             >
               Past Events ({pastEvents.length})
@@ -303,17 +395,17 @@ const Events = () => {
       </section>
 
       {/* Filter Section */}
-      <section className="filter-section py-10 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="filter-section py-8 bg-white border-b border-gray-200">
+        <div className="container mx-auto px-6">
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
-                className={`filter-button px-6 py-2.5 font-bold text-sm uppercase tracking-wider rounded-lg border-2 ${
+                className={`filter-button px-6 py-2.5 font-semibold text-sm uppercase tracking-wider rounded-lg transition-all ${
                   activeFilter === category
-                    ? 'bg-gray-900 text-white border-gray-900'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-400'
                 }`}
               >
                 {category}
