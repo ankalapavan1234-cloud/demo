@@ -381,9 +381,9 @@ const Projects = () => {
             <p className="text-lg text-gray-800 mb-8 font-medium max-w-2xl mx-auto">
               Pin your project idea to our Innovation Wall! Get mentorship, resources, and a passionate team to turn your vision into reality.
             </p>
-            <button className="px-10 py-5 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-lg rounded-full hover:shadow-2xl hover:scale-110 transition-all duration-300 transform hover:-translate-y-1">
+            <a href="/projects" className="inline-block px-10 py-5 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-lg rounded-full hover:shadow-2xl hover:scale-110 transition-all duration-300 transform hover:-translate-y-1">
               Submit Your Idea →
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -533,12 +533,12 @@ const Projects = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8 border-t-2 border-gray-200">
-                <button className={`px-8 py-4 bg-gradient-to-r ${selectedProject.color} text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300`}>
+                <a href={selectedProject.demoLink || '/projects'} target="_blank" rel="noopener noreferrer" className={`px-8 py-4 bg-gradient-to-r ${selectedProject.color} text-white font-bold rounded-full hover:shadow-xl hover:scale-105 transition-all duration-300 text-center`}>
                   View Live Demo →
-                </button>
-                <button className="px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-700 hover:scale-105 transition-all duration-300">
+                </a>
+                <a href={selectedProject.githubLink || '/projects'} target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-700 hover:scale-105 transition-all duration-300 text-center">
                   GitHub Repository
-                </button>
+                </a>
               </div>
             </div>
           </div>

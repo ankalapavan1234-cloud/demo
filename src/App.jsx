@@ -12,6 +12,7 @@ import Projects from './pages/Projects';
 import ProjectDetails from './pages/ProjectDetails';
 import StudentLife from './pages/StudentLife';
 import Contact from './pages/Contact';
+import JoinUs from './pages/JoinUs';
 
 function App() {
   useEffect(() => {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/projects/:projectId" element={<ProjectDetails />} />
           <Route path="/student-life" element={<StudentLife />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/join-us" element={<JoinUs />} />
         </Routes>
         <Footer />
       </div>

@@ -212,7 +212,7 @@ const Events = () => {
 
                 {/* Action Button */}
                 <div className="pt-1">
-                  <button className={`w-full bg-gradient-to-r ${event.color} text-white font-bold py-3 px-5 rounded-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group/btn`}>
+                  <a href="/join-us" className={`w-full bg-gradient-to-r ${event.color} text-white font-bold py-3 px-5 rounded-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden group/btn block text-center`}>
                     <span className="relative z-10 flex items-center justify-center gap-2 text-sm">
                       Register Now
                       <svg className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,16 +220,16 @@ const Events = () => {
                       </svg>
                     </span>
                     <div className="absolute inset-0 bg-white opacity-0 group-hover/btn:opacity-20 transition-opacity duration-300"></div>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
           ))}
         </div>
         <div className="text-center mt-16">
-          <button className="group px-10 py-5 bg-gradient-to-r from-gray-700 to-gray-600 text-white font-bold text-lg rounded-full hover:from-primary-600 hover:to-accent-600 transition-all duration-500 hover:shadow-2xl hover:scale-105 relative overflow-hidden">
+          <a href="/events" className="group inline-block px-10 py-5 bg-gradient-to-r from-gray-700 to-gray-600 text-white font-bold text-lg rounded-full hover:from-primary-600 hover:to-accent-600 transition-all duration-500 hover:shadow-2xl hover:scale-105 relative overflow-hidden">
             <span className="relative z-10 flex items-center gap-2">View All Events<svg className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></span>
-          </button>
+          </a>
         </div>
       </div>
     </section>

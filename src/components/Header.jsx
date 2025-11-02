@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] bg-white/95 backdrop-blur-md border-b border-gray-200">
@@ -16,23 +18,39 @@ const Header = () => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            {/* Modern Geometric Logo Mark */}
-            <div className="relative w-12 h-12 flex-shrink-0">
-              {/* SVG Scalar Graphic Logo (neutral colors only) */}
-              <svg viewBox="0 0 48 48" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                {/* Geometric Shapes representing VVIT + IUCEE collaboration (neutral colors) */}
-                {/* Left Circle - VVIT */}
-                <circle cx="16" cy="24" r="13" fill="#e5e7eb" opacity="0.9" />
-                {/* Right Circle - IUCEE */}
-                <circle cx="32" cy="24" r="13" fill="#d1d5db" opacity="0.9" />
-                {/* Center Intersection - Collaboration */}
-                <ellipse cx="24" cy="24" rx="6" ry="13" fill="#f3f4f6" opacity="0.95" />
-                {/* Inner accent lines for depth */}
-                <circle cx="16" cy="24" r="10" fill="none" stroke="#111" strokeWidth="1.5" opacity="0.3" />
-                <circle cx="32" cy="24" r="10" fill="none" stroke="#111" strokeWidth="1.5" opacity="0.3" />
-                {/* Center highlight */}
-                <path d="M 24 14 L 24 34" stroke="#111" strokeWidth="2" opacity="0.4" strokeLinecap="round" />
-              </svg>
+            {/* Animated Collaboration Logo Mark */}
+            <div className="relative w-12 h-12 flex-shrink-0 overflow-visible">
+              {/* VVIT Card - Left */}
+              <div className="absolute w-5 h-5 rounded-md bg-gradient-to-br from-blue-500 to-blue-600 shadow-sm
+                            transition-all duration-700 ease-in-out
+                            left-0 top-1/2 -translate-y-1/2
+                            group-hover:left-[14px] group-hover:scale-95 group-hover:opacity-80
+                            flex items-center justify-center">
+                <span className="text-[8px] font-bold text-white">V</span>
+              </div>
+
+              {/* IUCEE Card - Right */}
+              <div className="absolute w-5 h-5 rounded-md bg-gradient-to-br from-purple-500 to-purple-600 shadow-sm
+                            transition-all duration-700 ease-in-out
+                            right-0 top-1/2 -translate-y-1/2
+                            group-hover:right-[14px] group-hover:scale-95 group-hover:opacity-80
+                            flex items-center justify-center">
+                <span className="text-[8px] font-bold text-white">I</span>
+              </div>
+
+              {/* VVISC Card - Center (appears on hover) */}
+              <div className="absolute w-6 h-6 rounded-lg bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 shadow-lg
+                            transition-all duration-700 ease-in-out
+                            left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+                            scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100
+                            flex items-center justify-center border border-white/20">
+                <span className="text-[9px] font-bold text-white tracking-tight">VS</span>
+              </div>
+
+              {/* Collision Effect Ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-transparent
+                            group-hover:border-blue-400/30 group-hover:scale-150
+                            transition-all duration-700 ease-out opacity-0 group-hover:opacity-100"></div>
             </div>
 
             {/* Brand Text */}
@@ -58,9 +76,12 @@ const Header = () => {
           </a>
 
           {/* Right Side - CTA Button */}
-          <button className="group relative px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg overflow-hidden">
-            {/* Button background effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <button 
+            onClick={() => navigate('/join-us')}
+            className="group relative px-6 py-2.5 bg-gradient-to-r from-blue-800 to-purple-900 text-white text-sm font-medium rounded-lg overflow-hidden cursor-pointer"
+          >
+            {/* Button background effect (subtle gradient by default, intensifies on hover) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 group-hover:opacity-100 transition-opacity duration-300"></div>
             
             {/* Button text */}
             <span className="relative flex items-center gap-2">

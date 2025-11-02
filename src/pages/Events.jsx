@@ -12,104 +12,65 @@ const Events = () => {
   const pastRef = useRef(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('upcoming');
-  
-  // Counter animation states
-  const [eventsCount, setEventsCount] = useState(0);
-  const [participantsCount, setParticipantsCount] = useState(0);
-  const [categoriesCount, setCategoriesCount] = useState(0);
-  const countersRef = useRef({ events: 0, participants: 0, categories: 0 });
-  const hasCountedRef = useRef(false);
-
-  useEffect(() => {
-    // Setup IntersectionObserver to start counters when hero is visible
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !hasCountedRef.current) {
-          hasCountedRef.current = true;
-          // targets
-          const targetEvents = upcomingEvents.length;
-          const targetParticipants = upcomingEvents.reduce((total, event) => {
-            const num = parseInt(event.participants);
-            return total + (isNaN(num) ? 0 : num);
-          }, 0);
-          const targetCategories = new Set(upcomingEvents.map(e => e.category)).size;
-
-          // simple easing counter using requestAnimationFrame
-          const animate = (key, setter, start, end, duration = 900) => {
-            const startTime = performance.now();
-            const step = (now) => {
-              const t = Math.min(1, (now - startTime) / duration);
-              const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
-              const value = Math.floor(start + (end - start) * eased);
-              setter(value);
-              if (t < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-          };
-
-          animate('events', setEventsCount, 0, targetEvents);
-          animate('participants', setParticipantsCount, 0, targetParticipants);
-          animate('categories', setCategoriesCount, 0, targetCategories);
-        }
-      });
-    }, { threshold: 0.2 });
-
-    if (heroRef.current) obs.observe(heroRef.current);
-    return () => obs.disconnect();
-  }, [upcomingEvents]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero Animation
+      // Hero Animation - Editorial style
       gsap.fromTo('.hero-title',
-        { opacity: 0, y: 100 },
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 1.2,
           ease: 'power3.out',
         }
       );
 
       gsap.fromTo('.hero-subtitle',
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          delay: 0.2,
+          duration: 0.9,
+          delay: 0.3,
           ease: 'power3.out',
         }
       );
 
-      // Filter Animation
-      gsap.fromTo('.filter-button',
-        { opacity: 0, scale: 0.8 },
+      gsap.fromTo('.hero-cta',
+        { opacity: 0, x: -20 },
         {
-          scrollTrigger: {
-            trigger: '.filter-section',
-            start: 'top 80%',
-          },
           opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: 'back.out(1.7)',
+          x: 0,
+          duration: 0.8,
+          delay: 0.5,
+          ease: 'power3.out',
+        }
+      );
+
+      // Grid line-art fade in
+      gsap.fromTo('.line-art-grid',
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 1.5,
+          delay: 0.2,
+          ease: 'power2.out',
         }
       );
 
       // Event Cards Animation
       gsap.fromTo('.event-card',
-        { opacity: 0, y: 80 },
+        { opacity: 0, y: 60 },
         {
           scrollTrigger: {
             trigger: upcomingRef.current,
-            start: 'top 70%',
+            start: 'top 75%',
           },
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.15,
+          duration: 0.9,
+          stagger: 0.12,
           ease: 'power3.out',
         }
       );
@@ -267,107 +228,247 @@ const Events = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-  <section ref={heroRef} className="relative pt-40 md:pt-56 pb-12 overflow-hidden bg-white">
-        {/* Subtle Dotted Grid Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
-            backgroundSize: '24px 24px'
-          }}></div>
-        </div>
-
-        {/* Abstract Line-Art Illustration - Background */}
-        <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
-          <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            {/* Flowing organic lines */}
-            <path d="M0 400 Q200 200 400 400 T800 400 T1200 400" stroke="#9333EA" strokeWidth="2" />
-            <path d="M0 500 Q300 300 600 500 T1200 500" stroke="#3B82F6" strokeWidth="1.5" />
-            <path d="M200 0 Q200 200 400 200 T600 200 T800 200" stroke="#EC4899" strokeWidth="1.5" />
-            
-            {/* Scattered circles */}
-            <circle cx="150" cy="200" r="30" stroke="#A855F7" strokeWidth="2" fill="none" />
-            <circle cx="950" cy="150" r="45" stroke="#3B82F6" strokeWidth="2" fill="none" />
-            <circle cx="700" cy="650" r="35" stroke="#EC4899" strokeWidth="2" fill="none" />
-            
-            {/* Grid patterns */}
-            <line x1="100" y1="100" x2="250" y2="100" stroke="#9333EA" strokeWidth="1.5" strokeDasharray="5 5" />
-            <line x1="100" y1="100" x2="100" y2="250" stroke="#9333EA" strokeWidth="1.5" strokeDasharray="5 5" />
-            <line x1="900" y1="600" x2="1050" y2="600" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="5 5" />
-            <line x1="1050" y1="500" x2="1050" y2="650" stroke="#3B82F6" strokeWidth="1.5" strokeDasharray="5 5" />
-            
-            {/* Angular geometric shapes */}
-            <polygon points="500,50 520,80 500,110 480,80" stroke="#EC4899" strokeWidth="2" fill="none" />
-            <rect x="800" y="450" width="60" height="60" stroke="#A855F7" strokeWidth="2" fill="none" transform="rotate(45 830 480)" />
-            
-            {/* Curved connecting lines */}
-            <path d="M300 150 Q400 250 500 150" stroke="#9333EA" strokeWidth="1.5" fill="none" />
-            <path d="M600 550 Q700 450 800 550" stroke="#3B82F6" strokeWidth="1.5" fill="none" />
-          </svg>
-        </div>
-
-        {/* Top Left - Subtle Geometric Shapes */}
-        <div className="absolute top-32 left-8 opacity-15 z-0">
-          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="8" stroke="#9333EA" strokeWidth="2" />
-            <rect x="50" y="10" width="15" height="15" stroke="#9333EA" strokeWidth="2" />
-            <path d="M40 50L45 40L50 50L40 50Z" stroke="#9333EA" strokeWidth="2" />
-            <line x1="15" y1="60" x2="25" y2="60" stroke="#9333EA" strokeWidth="3" />
-            <line x1="20" y1="55" x2="20" y2="65" stroke="#9333EA" strokeWidth="3" />
-          </svg>
-        </div>
-
-        {/* Large Abstract Wave - Bottom Right - Enhanced Colors */}
-        <div className="absolute bottom-0 right-0 w-2/3 h-96 pointer-events-none opacity-70 z-0">
-          <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+      {/* Hero Section - Minimal Text-Centered Design with Animated Background */}
+      <section ref={heroRef} className="relative pt-52 pb-32 overflow-hidden bg-white">
+        
+        {/* Animated SVG Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.04]">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style={{ stopColor: '#9333EA', stopOpacity: 1 }} />
-                <stop offset="50%" style={{ stopColor: '#A855F7', stopOpacity: 0.95 }} />
-                <stop offset="100%" style={{ stopColor: '#EC4899', stopOpacity: 1 }} />
-              </linearGradient>
-              <linearGradient id="waveAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style={{ stopColor: '#3B82F6', stopOpacity: 0.3 }} />
-                <stop offset="100%" style={{ stopColor: '#8B5CF6', stopOpacity: 0.3 }} />
-              </linearGradient>
+              {/* Animated diagonal lines pattern */}
+              <pattern id="diagonalLines" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="40" y2="40" stroke="#1f2937" strokeWidth="0.5">
+                  <animate attributeName="x1" values="0;40;0" dur="20s" repeatCount="indefinite"/>
+                  <animate attributeName="y1" values="0;40;0" dur="20s" repeatCount="indefinite"/>
+                </line>
+              </pattern>
+              
+              {/* Animated dots pattern */}
+              <pattern id="dots" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                <circle cx="30" cy="30" r="1.5" fill="#1f2937">
+                  <animate attributeName="r" values="1.5;2.5;1.5" dur="4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.3;0.7;0.3" dur="4s" repeatCount="indefinite"/>
+                </circle>
+              </pattern>
+              
+              {/* Animated circles pattern */}
+              <pattern id="circles" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <circle cx="50" cy="50" r="20" stroke="#1f2937" strokeWidth="0.5" fill="none">
+                  <animate attributeName="r" values="20;25;20" dur="6s" repeatCount="indefinite"/>
+                </circle>
+              </pattern>
             </defs>
-            <path 
-              d="M800 400 L800 250 Q700 150 600 200 Q500 250 400 180 Q300 110 200 220 Q100 330 0 280 L0 400 Z" 
-              fill="url(#waveGradient)"
-            />
-            {/* Additional wave layer for depth */}
-            <path 
-              d="M800 400 L800 280 Q700 200 600 240 Q500 280 400 220 Q300 160 200 260 Q100 360 0 310 L0 400 Z" 
-              fill="url(#waveAccent)"
-            />
+            
+            <rect width="100%" height="100%" fill="url(#diagonalLines)"/>
+            <rect width="100%" height="100%" fill="url(#dots)" opacity="0.6"/>
+            <rect width="100%" height="100%" fill="url(#circles)" opacity="0.4"/>
           </svg>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+        {/* SVG Illustration - Collaboration (Left Side) */}
+        <div className="absolute top-32 left-12 w-80 h-80 opacity-[0.25]">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Three people in discussion circle */}
+            <circle cx="60" cy="80" r="15" stroke="#1f2937" strokeWidth="2" fill="none"/>
+            <circle cx="100" cy="60" r="15" stroke="#1f2937" strokeWidth="2" fill="none"/>
+            <circle cx="140" cy="80" r="15" stroke="#1f2937" strokeWidth="2" fill="none"/>
             
-            {/* Main Headline */}
-            <h1 className="hero-title text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-              Upcoming Tech Events & Workshops
-            </h1>
+            {/* Bodies */}
+            <path d="M60 95 L60 120 M50 105 L70 105" stroke="#1f2937" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M100 75 L100 100 M90 85 L110 85" stroke="#1f2937" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M140 95 L140 120 M130 105 L150 105" stroke="#1f2937" strokeWidth="2" strokeLinecap="round"/>
             
-            {/* Description Paragraph */}
-            <p className="hero-subtitle text-base lg:text-lg text-gray-700 leading-relaxed mb-6">
-              Expand your skills, build your network, and shape your future. Join industry-leading workshops, intensive hackathons, and professional conferences designed to accelerate your career in technology.
+            {/* Connection lines between people */}
+            <path d="M75 85 L85 70" stroke="#1f2937" strokeWidth="1.5" strokeDasharray="3,3">
+              <animate attributeName="stroke-dashoffset" values="0;6;0" dur="3s" repeatCount="indefinite"/>
+            </path>
+            <path d="M115 70 L125 85" stroke="#1f2937" strokeWidth="1.5" strokeDasharray="3,3">
+              <animate attributeName="stroke-dashoffset" values="0;6;0" dur="3s" repeatCount="indefinite"/>
+            </path>
+            
+            {/* Idea bulb in center */}
+            <circle cx="100" cy="100" r="12" stroke="#1f2937" strokeWidth="2" fill="none">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <path d="M100 88 L100 82 M94 94 L94 88 M106 94 L106 88" stroke="#1f2937" strokeWidth="2" strokeLinecap="round">
+              <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+            </path>
+            
+            {/* Speech bubbles */}
+            <ellipse cx="45" cy="65" rx="10" ry="8" stroke="#1f2937" strokeWidth="1.5" fill="none"/>
+            <ellipse cx="155" cy="65" rx="10" ry="8" stroke="#1f2937" strokeWidth="1.5" fill="none"/>
+            
+            {/* Surrounding connection circle */}
+            <circle cx="100" cy="90" r="55" stroke="#1f2937" strokeWidth="0.5" fill="none" strokeDasharray="4,4">
+              <animateTransform attributeName="transform" type="rotate" from="0 100 90" to="360 100 90" dur="30s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+
+        {/* SVG Illustration - Idea/Innovation (Right Side) */}
+        <div className="absolute top-40 right-16 w-72 h-72 opacity-[0.25]">
+          <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Large lightbulb */}
+            <circle cx="90" cy="75" r="25" stroke="#1f2937" strokeWidth="2" fill="none">
+              <animate attributeName="r" values="25;27;25" dur="4s" repeatCount="indefinite"/>
+            </circle>
+            <path d="M90 50 L90 40 M75 60 L68 53 M105 60 L112 53 M65 75 L55 75 M115 75 L125 75" 
+                  stroke="#1f2937" strokeWidth="2" strokeLinecap="round">
+              <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+            </path>
+            
+            {/* Base of bulb */}
+            <rect x="82" y="100" width="16" height="8" stroke="#1f2937" strokeWidth="2" fill="none"/>
+            <rect x="84" y="108" width="12" height="4" stroke="#1f2937" strokeWidth="1.5" fill="none"/>
+            
+            {/* Network nodes around idea */}
+            <circle cx="50" cy="50" r="6" fill="#1f2937">
+              <animate attributeName="cy" values="50;45;50" dur="3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="130" cy="50" r="6" fill="#1f2937">
+              <animate attributeName="cy" values="50;45;50" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="100" r="6" fill="#1f2937">
+              <animate attributeName="cy" values="100;95;100" dur="3s" begin="1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="130" cy="100" r="6" fill="#1f2937">
+              <animate attributeName="cy" values="100;95;100" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            </circle>
+            
+            {/* Connecting lines to nodes */}
+            <line x1="65" y1="67" x2="50" y2="50" stroke="#1f2937" strokeWidth="0.5" strokeDasharray="2,2"/>
+            <line x1="115" y1="67" x2="130" y2="50" stroke="#1f2937" strokeWidth="0.5" strokeDasharray="2,2"/>
+            <line x1="65" y1="83" x2="50" y2="100" stroke="#1f2937" strokeWidth="0.5" strokeDasharray="2,2"/>
+            <line x1="115" y1="83" x2="130" y2="100" stroke="#1f2937" strokeWidth="0.5" strokeDasharray="2,2"/>
+            
+            {/* Glow effect circle */}
+            <circle cx="90" cy="75" r="35" stroke="#1f2937" strokeWidth="0.5" fill="none" opacity="0.3">
+              <animate attributeName="r" values="35;40;35" dur="5s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.3;0.1;0.3" dur="5s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+
+        {/* SVG Illustration - Team Connection (Bottom) */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-96 h-40 opacity-[0.20]">
+          <svg viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Five connected people representing team */}
+            <g>
+              {/* Person 1 */}
+              <circle cx="30" cy="40" r="12" stroke="#1f2937" strokeWidth="1.8" fill="none"/>
+              <path d="M30 52 L30 70 M20 60 L40 60" stroke="#1f2937" strokeWidth="1.8" strokeLinecap="round"/>
+              
+              {/* Person 2 */}
+              <circle cx="80" cy="30" r="12" stroke="#1f2937" strokeWidth="1.8" fill="none"/>
+              <path d="M80 42 L80 60 M70 50 L90 50" stroke="#1f2937" strokeWidth="1.8" strokeLinecap="round"/>
+              
+              {/* Person 3 - Center */}
+              <circle cx="150" cy="25" r="14" stroke="#1f2937" strokeWidth="2" fill="none"/>
+              <path d="M150 39 L150 60 M138 48 L162 48" stroke="#1f2937" strokeWidth="2" strokeLinecap="round"/>
+              
+              {/* Person 4 */}
+              <circle cx="220" cy="30" r="12" stroke="#1f2937" strokeWidth="1.8" fill="none"/>
+              <path d="M220 42 L220 60 M210 50 L230 50" stroke="#1f2937" strokeWidth="1.8" strokeLinecap="round"/>
+              
+              {/* Person 5 */}
+              <circle cx="270" cy="40" r="12" stroke="#1f2937" strokeWidth="1.8" fill="none"/>
+              <path d="M270 52 L270 70 M260 60 L280 60" stroke="#1f2937" strokeWidth="1.8" strokeLinecap="round"/>
+            </g>
+            
+            {/* Connection arch lines */}
+            <path d="M42 45 Q60 20 68 35" stroke="#1f2937" strokeWidth="0.8" fill="none" strokeDasharray="3,2">
+              <animate attributeName="stroke-dashoffset" values="0;5;0" dur="4s" repeatCount="indefinite"/>
+            </path>
+            <path d="M92 35 Q120 15 138 30" stroke="#1f2937" strokeWidth="0.8" fill="none" strokeDasharray="3,2">
+              <animate attributeName="stroke-dashoffset" values="0;5;0" dur="4s" begin="0.5s" repeatCount="indefinite"/>
+            </path>
+            <path d="M162 30 Q180 15 208 35" stroke="#1f2937" strokeWidth="0.8" fill="none" strokeDasharray="3,2">
+              <animate attributeName="stroke-dashoffset" values="0;5;0" dur="4s" begin="1s" repeatCount="indefinite"/>
+            </path>
+            <path d="M232 35 Q240 20 258 45" stroke="#1f2937" strokeWidth="0.8" fill="none" strokeDasharray="3,2">
+              <animate attributeName="stroke-dashoffset" values="0;5;0" dur="4s" begin="1.5s" repeatCount="indefinite"/>
+            </path>
+            
+            {/* Bottom connection line */}
+            <path d="M30 70 L80 60 L150 60 L220 60 L270 70" stroke="#1f2937" strokeWidth="1" fill="none" strokeDasharray="5,3">
+              <animate attributeName="stroke-dashoffset" values="0;8;0" dur="6s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+        </div>
+
+        {/* Floating Animated Geometric Accent */}
+        <div className="absolute top-1/2 right-8 -translate-y-1/2 w-24 h-24 opacity-[0.20]">
+          <svg viewBox="0 0 100 100" className="w-full h-full animate-spin-slow">
+            <circle cx="50" cy="50" r="40" stroke="#1f2937" strokeWidth="1.5" fill="none"/>
+            <circle cx="50" cy="50" r="25" stroke="#1f2937" strokeWidth="1.5" fill="none"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="#1f2937" strokeWidth="1.5"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="#1f2937" strokeWidth="1.5"/>
+          </svg>
+        </div>
+        
+        {/* Content Container - Center-Aligned */}
+        <div className="container mx-auto px-8 relative z-10">
+          <div className="max-w-6xl mx-auto text-center">
+            
+            {/* Main Headline with Extending Lines */}
+            <div className="relative mb-12">
+              {/* Thin horizontal lines extending from both sides */}
+              <div className="line-art-grid absolute left-0 right-0 top-1/2 -translate-y-1/2 flex items-center justify-between pointer-events-none">
+                {/* Left line with geometric elements */}
+                <svg className="w-[35%] h-1" viewBox="0 0 400 4" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <line x1="0" y1="2" x2="320" y2="2" stroke="#1f2937" strokeWidth="1"/>
+                  <circle cx="340" cy="2" r="3" fill="#1f2937"/>
+                  <line x1="350" y1="2" x2="380" y2="2" stroke="#1f2937" strokeWidth="1.5"/>
+                  <rect x="385" y="0" width="4" height="4" fill="#1f2937"/>
+                </svg>
+                
+                {/* Right line with geometric elements */}
+                <svg className="w-[35%] h-1" viewBox="0 0 400 4" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                  <rect x="11" y="0" width="4" height="4" fill="#1f2937"/>
+                  <line x1="20" y1="2" x2="50" y2="2" stroke="#1f2937" strokeWidth="1.5"/>
+                  <circle cx="60" cy="2" r="3" fill="#1f2937"/>
+                  <line x1="80" y1="2" x2="400" y2="2" stroke="#1f2937" strokeWidth="1"/>
+                </svg>
+              </div>
+              
+              {/* Large uppercase headline */}
+              <h1 className="hero-title relative inline-block px-8 bg-white text-[48px] md:text-[64px] lg:text-[80px] font-black text-gray-900 uppercase tracking-wide leading-[1.1]" style={{ letterSpacing: '0.05em' }}>
+                Where Minds<br/>Meet Moments
+              </h1>
+            </div>
+            
+            {/* Subtitle - Minimal serif font */}
+            <p className="hero-subtitle text-[16px] md:text-[18px] text-gray-700 leading-relaxed mb-16 max-w-2xl mx-auto font-medium" style={{ fontFamily: "'Georgia', serif" }}>
+              Discover transformative experiences through curated workshops, immersive hackathons,<br className="hidden md:block"/>and thought-leading conferences designed to elevate your journey in technology.
             </p>
 
-            {/* CTA Button */}
+            {/* Abstract geometric accent below */}
+            <div className="hero-cta flex justify-center items-center gap-3 mb-8">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="2" fill="#1f2937"/>
+              </svg>
+              <div className="h-[1px] w-16 bg-gray-900"></div>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="6" width="4" height="4" fill="#1f2937"/>
+              </svg>
+              <div className="h-[1px] w-16 bg-gray-900"></div>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="10" cy="10" r="2" fill="#1f2937"/>
+              </svg>
+            </div>
+
+            {/* Minimal CTA */}
             <div>
-              <button className="px-8 py-3 bg-purple-600 text-white text-base font-semibold rounded-xl hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl">
-                View All Events
-              </button>
+              <a href="#upcoming" className="inline-block text-[13px] font-semibold text-gray-900 uppercase tracking-widest border-b-2 border-gray-900 pb-1 hover:text-gray-600 hover:border-gray-600 transition-colors" style={{ letterSpacing: '0.15em' }}>
+                Explore Events
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Tab Navigation */}
-  <section className="py-6 bg-gray-50 border-b border-gray-200 sticky top-[120px] z-40">
+      <section className="py-6 bg-gray-50 border-b border-gray-200 sticky top-[120px] z-40">
         <div className="container mx-auto px-6">
           <div className="flex justify-center gap-4">
             <button
@@ -627,20 +728,18 @@ const Events = () => {
               Ready to Join the Next Event?
             </h2>
             <p className="text-xl text-white/90 font-medium mb-12 leading-relaxed">
-              Don't miss out on opportunities to learn, network, and grow. Subscribe to our newsletter for event updates and exclusive early-bird registrations!
+              Be part of something extraordinary. Connect with innovators, learn from experts, and transform your future through our curated events.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="flex-1 px-6 py-4 rounded-full text-gray-900 font-medium focus:outline-none focus:ring-4 focus:ring-white/50"
-              />
-              <button className="px-10 py-4 bg-white text-gray-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-2xl">
-                Subscribe Now
+            <div className="flex justify-center">
+              <button 
+                onClick={() => navigate('/join-us')}
+                className="px-12 py-4 bg-white text-gray-900 font-bold text-lg rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-2xl cursor-pointer"
+              >
+                Join Us
               </button>
             </div>
             <p className="text-white/80 text-sm mt-6 font-medium">
-              Join 5,000+ students already subscribed to our events newsletter
+              Join thousands of students shaping the future of technology
             </p>
           </div>
         </div>

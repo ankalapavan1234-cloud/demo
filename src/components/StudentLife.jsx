@@ -193,70 +193,74 @@ const StudentLife = () => {
     <section
       id="student-life"
       ref={sectionRef}
-      className="py-20 lg:py-32 relative overflow-hidden bg-gradient-to-b from-slate-900 via-indigo-900 to-slate-900"
+      className="py-20 lg:py-28 relative overflow-hidden bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50"
     >
-      {/* Ambient stars/particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-white rounded-full opacity-50 animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
-            }}
-          ></div>
-        ))}
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Title */}
-        <div ref={titleRef} className="text-center mb-20">
-          <div className="inline-block mb-6">
-            <svg viewBox="0 0 24 24" className="w-16 h-16 inline-block" fill="currentColor" aria-hidden>
-              <path d="M12 2L3 7l9 5 9-5-9-5zm0 7.5L6.2 7 12 4.5 17.8 7 12 9.5zM5 9v6c0 3 3 5 7 5s7-2 7-5V9" />
-            </svg>
+        {/* Hero Section - Typography Centered with Geometric Line Art */}
+        <div ref={titleRef} className="text-center mb-20 relative py-16">
+          {/* Geometric Line Art Frames - Photo Frame Outlines */}
+          
+          {/* Top Left Rectangle Frame */}
+          <div className="absolute top-0 left-1/4 w-32 h-24 border border-gray-300 rounded-sm opacity-40 transform -rotate-6"></div>
+          
+          {/* Top Right Circle Frame */}
+          <div className="absolute top-8 right-1/4 w-20 h-20 border border-gray-400 rounded-full opacity-30"></div>
+          
+          {/* Left Side Rectangle Frame */}
+          <div className="absolute top-1/3 left-12 w-24 h-32 border border-gray-300 rounded-sm opacity-35 transform rotate-12 hidden lg:block"></div>
+          
+          {/* Right Side Rectangle Frame */}
+          <div className="absolute top-1/4 right-16 w-28 h-36 border border-gray-300 rounded-sm opacity-40 transform -rotate-6 hidden lg:block"></div>
+          
+          {/* Bottom Left Circle Frame */}
+          <div className="absolute bottom-12 left-1/3 w-24 h-24 border border-gray-400 rounded-full opacity-25 hidden md:block"></div>
+          
+          {/* Bottom Right Rectangle Frame */}
+          <div className="absolute bottom-8 right-1/3 w-28 h-20 border border-gray-300 rounded-sm opacity-35 transform rotate-3 hidden md:block"></div>
+          
+          {/* Center Small Circle */}
+          <div className="absolute top-12 left-1/2 transform -translate-x-1/2 w-16 h-16 border border-gray-400 rounded-full opacity-20"></div>
+          
+          {/* Additional Decorative Lines */}
+          <div className="absolute top-1/2 left-20 w-16 h-0.5 bg-gray-300 opacity-30 transform -rotate-45 hidden lg:block"></div>
+          <div className="absolute top-1/2 right-24 w-20 h-0.5 bg-gray-300 opacity-30 transform rotate-45 hidden lg:block"></div>
+
+          {/* Main Headline - Typography Centered */}
+          <div className="relative z-10">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-light text-gray-900 mb-6 tracking-tight leading-tight">
+              Everyday Moments.<br />
+              <span className="font-normal text-gray-800">Endless Memories.</span>
+            </h1>
+            
+            {/* Subtext */}
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto font-light tracking-wide leading-relaxed mt-8">
+              Discover the spirit of students in motion, learning, and celebration.
+            </p>
           </div>
-          <h2 className="text-5xl sm:text-6xl lg:text-7xl font-display font-bold mb-6 text-white">
-            Student <span className="gradient-text">Life</span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto font-medium">
-            Experience the vibrant energy, unforgettable moments, and continuous flow of creativity that defines our community.
-          </p>
         </div>
 
         {/* Memory River Section */}
-        <div className="mb-32">
-          <div ref={riverTitleRef} className="text-center mb-16">
-            <h3 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-              Moments That <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Define Us</span>
-            </h3>
-            <p className="text-lg text-gray-400 italic">
-              The Memory River — A continuous flow of our shared experiences
-            </p>
-          </div>
-
+        <div className="mb-16">
           {/* River Container */}
           <div
             ref={riverRef}
-            className="relative h-[500px] overflow-hidden rounded-3xl"
+            className="relative h-[400px] overflow-hidden rounded-2xl shadow-xl"
             style={{
-              background: 'linear-gradient(180deg, rgba(15,23,42,0.8) 0%, rgba(30,41,59,0.6) 50%, rgba(15,23,42,0.8) 100%)',
+              background: 'linear-gradient(180deg, rgba(249,250,251,0.9) 0%, rgba(243,244,246,0.8) 50%, rgba(249,250,251,0.9) 100%)',
               backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(209,213,219,0.3)',
             }}
           >
-            {/* River surface gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-blue-500/10 to-indigo-500/5 pointer-events-none"></div>
+            {/* Subtle overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-100/10 via-transparent to-gray-100/10 pointer-events-none"></div>
 
-            {/* Light reflections */}
+            {/* Light reflections - subtle gray */}
             {[1, 2, 3].map((ref) => (
               <div
                 key={ref}
                 className="light-reflection absolute top-0 h-full w-48 pointer-events-none"
                 style={{
-                  background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
+                  background: 'linear-gradient(90deg, transparent 0%, rgba(156,163,175,0.08) 50%, transparent 100%)',
                   transform: `translateX(-100%) skewX(-20deg)`,
                   animationDelay: `${ref * 3}s`,
                 }}
@@ -265,62 +269,40 @@ const StudentLife = () => {
 
             {/* Horizontal scrollable river */}
             <div className="absolute inset-0 overflow-x-auto overflow-y-hidden scroll-smooth hide-scrollbar">
-              <div className="flex items-center h-full px-12 gap-8" style={{ width: 'max-content' }}>
+              <div className="flex items-center h-full px-8 gap-6" style={{ width: 'max-content' }}>
                 {memories.map((memory, index) => (
                   <div
                     key={memory.id}
                     className="memory-photo cursor-pointer group relative flex-shrink-0"
                     onClick={() => openMemory(memory)}
                     style={{
-                      marginTop: `${Math.sin(index * 0.5) * 60}px`,
+                      marginTop: `${Math.sin(index * 0.5) * 40}px`,
                     }}
                   >
                     {/* Photo card */}
                     <div
-                      className={`relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-500 group-hover:scale-110 group-hover:shadow-3xl border-4 border-white/20`}
+                      className={`relative w-56 h-64 rounded-xl overflow-hidden shadow-lg transform transition-all duration-500 group-hover:scale-105 group-hover:shadow-2xl border border-gray-200 bg-white`}
                     >
                       {/* Background Image */}
                       <img 
                         src={memory.image} 
                         alt={memory.title}
-                        className="absolute inset-0 w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                       />
                       
-                      {/* Gradient Overlay for text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                      {/* Subtle Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent"></div>
                       
-                      {/* Ripple effect on hover */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                        {[1, 2, 3].map((ripple) => (
-                          <div
-                            key={ripple}
-                            className="absolute inset-0 border-4 border-white/30 rounded-3xl animate-ping"
-                            style={{
-                              animationDuration: `${1.5 + ripple * 0.5}s`,
-                              animationDelay: `${ripple * 0.2}s`,
-                            }}
-                          ></div>
-                        ))}
-                      </div>
-
                       {/* Content */}
-                      <div className="relative z-10 h-full flex flex-col items-center justify-end p-8 text-white">
-                        <h4 className="text-2xl font-bold text-center mb-2">
+                      <div className="relative z-10 h-full flex flex-col items-center justify-end p-5 text-white">
+                        <h4 className="text-xl font-semibold text-center mb-1.5 tracking-tight">
                           {memory.title}
                         </h4>
-                        <p className="text-sm italic text-center opacity-90 mb-4">
+                        <p className="text-xs text-center opacity-90 mb-2 font-light">
                           {memory.caption}
                         </p>
-                        <div className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-bold">
+                        <div className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-800">
                           {memory.year}
-                        </div>
-
-                        {/* Click indicator */}
-                        <div className="absolute bottom-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-sm font-semibold animate-bounce">
-                          <span>Expand</span>
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-                          </svg>
                         </div>
                       </div>
 
@@ -405,12 +387,12 @@ const StudentLife = () => {
               </p>
 
               <div className="flex gap-4 justify-center">
-                <button className={`px-8 py-4 bg-gradient-to-r ${selectedMemory.color} text-white font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300`}>
+                <a href="/student-life" className={`px-8 py-4 bg-gradient-to-r ${selectedMemory.color} text-white font-bold rounded-full hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center`}>
                   View Gallery
-                </button>
-                <button className="px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-700 hover:scale-105 transition-all duration-300">
+                </a>
+                <a href="/contact" className="px-8 py-4 bg-gray-900 text-white font-bold rounded-full hover:bg-gray-700 hover:scale-105 transition-all duration-300 text-center">
                   Share Memory
-                </button>
+                </a>
               </div>
             </div>
           </div>

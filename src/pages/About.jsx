@@ -15,6 +15,29 @@ const About = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isMissionFlipped, setIsMissionFlipped] = useState(false);
   const [isVisionFlipped, setIsVisionFlipped] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 50) {
+      // Swiped left
+      setActiveTab((prev) => (prev === 6 ? 0 : prev + 1));
+    }
+
+    if (touchStart - touchEnd < -50) {
+      // Swiped right
+      setActiveTab((prev) => (prev === 0 ? 6 : prev - 1));
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -598,15 +621,15 @@ const About = () => {
                   </div>
 
                   {/* Back Side - Full Description */}
-                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl overflow-y-auto" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
                     <div className="flex flex-col h-full justify-center">
-                      <div className="text-6xl mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-16 h-16 text-yellow-400" fill="currentColor" aria-hidden>
+                      <div className="text-6xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-12 h-12 text-yellow-400" fill="currentColor" aria-hidden>
                           <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-2v4h2v-4zm0-8h-2v6h2V5z" />
                         </svg>
                       </div>
-                      <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Mission</h2>
-                      <div className="space-y-4 text-lg leading-relaxed text-gray-700">
+                      <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Mission</h2>
+                      <div className="space-y-3 text-base leading-relaxed text-gray-700 flex-1 overflow-y-auto">
                         <p>
                           To foster a <strong className="text-gray-900">vibrant community</strong> of engineering students and faculty dedicated to advancing technology, promoting innovation, and creating positive impact through collaborative learning and hands-on projects.
                         </p>
@@ -617,7 +640,7 @@ const About = () => {
                           Through our initiatives, we aim to cultivate <strong className="text-gray-900">future leaders</strong> who will drive technological advancement and contribute meaningfully to society.
                         </p>
                       </div>
-                      <div className="mt-6 flex items-center gap-2 text-gray-600 text-sm">
+                      <div className="mt-4 flex items-center gap-2 text-gray-600 text-sm">
                         <span>Click to flip back</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -674,9 +697,9 @@ const About = () => {
                   </div>
 
                   {/* Back Side - Full Description */}
-                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+                  <div className="flip-card-back absolute w-full h-full rounded-3xl bg-white p-8 shadow-2xl overflow-y-auto" style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
                     <div className="flex flex-col h-full justify-center">
-                      <div className="w-16 h-16 mb-6">
+                      <div className="w-12 h-12 mb-4">
                         <svg viewBox="0 0 64 64" className="w-full h-full">
                           <defs>
                             <linearGradient id="eyeBackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -690,8 +713,8 @@ const About = () => {
                           <circle cx="35" cy="29" r="3" fill="#fff" opacity="0.9" />
                         </svg>
                       </div>
-                      <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Vision</h2>
-                      <div className="space-y-4 text-lg leading-relaxed text-gray-700">
+                      <h2 className="text-3xl font-bold mb-4 text-gray-900">Our Vision</h2>
+                      <div className="space-y-3 text-base leading-relaxed text-gray-700 flex-1 overflow-y-auto">
                         <p>
                           To be the <strong className="text-gray-900">leading student chapter</strong> recognized globally for excellence in technical education, innovation, and developing future-ready engineers who drive technological advancement and societal progress.
                         </p>
@@ -702,7 +725,7 @@ const About = () => {
                           Our goal is to establish a <strong className="text-gray-900">legacy of excellence</strong> that inspires generations of engineers to push boundaries and achieve the extraordinary.
                         </p>
                       </div>
-                      <div className="mt-6 flex items-center gap-2 text-gray-600 text-sm">
+                      <div className="mt-4 flex items-center gap-2 text-gray-600 text-sm">
                         <span>Click to flip back</span>
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -1020,13 +1043,13 @@ const About = () => {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
+      <section ref={statsRef} className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Our Impact in Numbers
             </h2>
-            <p className="text-xl text-blue-100">
+            <p className="text-xl text-gray-600">
               Making a difference one project at a time
             </p>
           </div>
@@ -1035,16 +1058,18 @@ const About = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="text-center bg-white/10 backdrop-blur-lg rounded-2xl p-8 transform hover:scale-110 transition-transform duration-300"
+                className="text-center bg-white rounded-2xl p-8 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl border-2 border-gray-200"
               >
                 <div className="mb-4">{stat.icon}</div>
-                <div
-                  className="stat-number text-5xl font-bold text-white mb-2"
-                  data-target={stat.number}
-                >
-                  0+
+                <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-6 mb-4">
+                  <div
+                    className="stat-number text-5xl font-bold text-white mb-0 font-mono tracking-tight"
+                    data-target={stat.number}
+                  >
+                    0+
+                  </div>
                 </div>
-                <p className="text-lg text-blue-100">{stat.label}</p>
+                <p className="text-lg text-gray-700 font-semibold">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -1265,195 +1290,93 @@ const About = () => {
         </div>
       </section>
 
-      {/* Leadership Section - Chairmen */}
-      <section ref={teamRef} className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="container mx-auto px-4 lg:px-8">
+      {/* Our Community - 7 Councils */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          {/* Section Heading */}
           <div className="text-center mb-16">
-            <div className="inline-block mb-4">
-              <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 rounded-full text-sm font-semibold">
-                <svg viewBox="0 0 24 24" className="inline-block w-4 h-4 mr-2 align-middle" fill="currentColor" aria-hidden>
-                  <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-8 9a8 8 0 0116 0H4z" />
-                </svg>
-                Leadership
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Our Visionary Leaders
+            <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+              Our Community
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Guiding excellence and innovation with dedication and expertise
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* VVIT Chairman */}
-            <div className="group">
-              <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                {/* Image Container */}
-                <div className="relative h-96 overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=800&fit=crop&q=80"
-                    alt="VVIT Chairman"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent"></div>
-                  
-                  {/* Badge */}
-                  <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-full px-6 py-3 shadow-xl">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold text-gray-800">VVIT</span>
-                    </div>
-                  </div>
-
-                  {/* Name Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <div className="mb-3">
-                      <span className="inline-block px-4 py-2 bg-blue-500/90 backdrop-blur-sm rounded-full text-sm font-semibold">
-                        Chairman
-                      </span>
-                    </div>
-                    <h3 className="text-3xl font-bold mb-2">Dr. [Name]</h3>
-                    <p className="text-blue-100 text-sm">Vasireddy Venkatadri Institute of Technology</p>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 bg-gradient-to-br from-blue-50 to-white">
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="text-2xl">
-                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-blue-700" fill="currentColor" aria-hidden>
-                          <path d="M12 2L4 7v2c0 5 3.6 9.7 8 11 4.4-1.3 8-6 8-11V7l-8-5zM6 12v-1l6 3 6-3v1l-6 3-6-3z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-gray-700 leading-relaxed">
-                          <strong className="text-blue-700">Visionary Leader</strong> with extensive experience in engineering education and institutional excellence.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="text-2xl">
-                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-yellow-400" fill="currentColor" aria-hidden>
-                          <path d="M12 2l2.4 4.9L20 8.2l-4 3.9.9 5.1L12 15.8 7.1 17.9 8 12.8 4 9l5.6-1.3L12 2z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-gray-600 text-sm">
-                          Driving innovation and academic excellence at VVIT, fostering world-class engineering talent.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Achievement Badge */}
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500 font-medium">Leadership Excellence</span>
-                      <div className="flex gap-1">
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* IUCEE Chairman */}
-            <div className="group">
-              <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                {/* Image Container */}
-                <div className="relative h-96 overflow-hidden">
-                  <img
-                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=800&h=800&fit=crop&q=80"
-                    alt="IUCEE Chairman"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-purple-900/50 to-transparent"></div>
-                  
-                  {/* Badge */}
-                  <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-md rounded-full px-6 py-3 shadow-xl">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-purple-500 rounded-full animate-pulse"></div>
-                      <span className="text-sm font-bold text-gray-800">IUCEE</span>
-                    </div>
-                  </div>
-
-                  {/* Name Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <div className="mb-3">
-                      <span className="inline-block px-4 py-2 bg-purple-500/90 backdrop-blur-sm rounded-full text-sm font-semibold">
-                        Chairman
-                      </span>
-                    </div>
-                    <h3 className="text-3xl font-bold mb-2">Dr. [Name]</h3>
-                    <p className="text-purple-100 text-sm">Indo-Universal Collaboration for Engineering Education</p>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-8 bg-gradient-to-br from-purple-50 to-white">
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="text-2xl">
-                        <svg viewBox="0 0 24 24" className="w-6 h-6 text-cyan-500" fill="currentColor" aria-hidden>
-                          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14.9V18h-2v-1.1a6 6 0 010-9.8V6h2v.1a6 6 0 010 10.8z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-gray-700 leading-relaxed">
-                          <strong className="text-purple-700">Global Pioneer</strong> in engineering education transformation and international collaboration.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <div className="text-2xl">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-indigo-500" fill="currentColor" aria-hidden>
-                          <path d="M12 2c.6 0 1.2.2 1.7.6l3.6 3.6c.4.4.6 1 .6 1.7 0 .6-.2 1.2-.6 1.7L13 15l-1.4 4.3c-.1.3-.4.5-.7.5-.1 0-.2 0-.3-.1L6.6 19c-.8-.4-1.5-1.1-1.9-1.9L4.1 14c0-.1 0-.2-.1-.3 0-.4.2-.7.5-.8L9 11l5-4.9c.3-.3.6-.5 1-.6.1 0 .1-.1.2-.1z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className="text-gray-600 text-sm">
-                          Leading IUCEE's mission to revolutionize engineering education across 500+ institutions globally.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Achievement Badge */}
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500 font-medium">Global Impact</span>
-                      <div className="flex gap-1">
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                        <span className="text-yellow-500">⭐</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Message */}
-          <div className="mt-16 text-center">
-            <div className="inline-block bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl px-8 py-6 max-w-2xl">
-              <p className="text-gray-700 leading-relaxed">
-                <svg viewBox="0 0 24 24" className="inline-block w-5 h-5 mr-2 align-middle text-indigo-500" fill="currentColor" aria-hidden>
-                  <path d="M20 8.5c0-.8-.7-1.5-1.5-1.5-.4 0-.8.1-1.1.4L12 13.3 7.6 8.9C7.3 8.6 6.9 8.5 6.5 8.5 5.7 8.5 5 9.2 5 10c0 .3.1.6.3.9l4.6 4.6c.4.4 1 .4 1.4 0l8.7-8.7c.2-.2.3-.5.3-.8z" />
+          {/* Councils Grid */}
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {/* Projects Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-blue-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <strong className="text-gray-900">United in Vision:</strong> Our leaders bring decades of combined experience in shaping the future of engineering education and empowering the next generation of innovators.
-              </p>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Projects Council</h3>
+              <p className="text-sm text-gray-600 text-center">Where ideas turn into impact.</p>
+            </div>
+
+            {/* Events Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-purple-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Events Council</h3>
+              <p className="text-sm text-gray-600 text-center">Connecting minds through action.</p>
+            </div>
+
+            {/* Technical Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-indigo-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-indigo-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Technical Council</h3>
+              <p className="text-sm text-gray-600 text-center">Building tomorrow's tech today.</p>
+            </div>
+
+            {/* Social Media Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-pink-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-pink-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Social Media Council</h3>
+              <p className="text-sm text-gray-600 text-center">Amplifying our voice to the world.</p>
+            </div>
+
+            {/* Promotion Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-cyan-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Promotion Council</h3>
+              <p className="text-sm text-gray-600 text-center">Spreading innovation across boundaries.</p>
+            </div>
+
+            {/* Crafting Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-orange-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-orange-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Crafting Council</h3>
+              <p className="text-sm text-gray-600 text-center">Turning creativity into reality.</p>
+            </div>
+
+            {/* Designing Council */}
+            <div className="group relative bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-teal-500 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+              <div className="mb-6 text-teal-600 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-20 h-20 mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Designing Council</h3>
+              <p className="text-sm text-gray-600 text-center">Visualizing ideas that inspire.</p>
             </div>
           </div>
         </div>

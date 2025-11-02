@@ -121,69 +121,97 @@ const Navbar = () => {
             )
           ))}
         </div>
-
-        {/* Mobile Navigation */}
-        <div className="pointer-events-auto md:hidden">
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="glass-effect rounded-full p-4 shadow-xl border-2 border-white/30"
-          >
-            <svg
-              className="w-6 h-6 text-primary-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-
-          {/* Mobile Menu Dropdown */}
-          {isMobileMenuOpen && (
-            <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 glass-effect rounded-3xl shadow-2xl border-2 border-white/30 p-3 min-w-[180px]">
-              {navItems.map((item) => (
-                item.type === 'link' ? (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-300 ${
-                      location.pathname === item.href
-                        ? 'bg-gradient-to-r from-primary-600 to-accent-600 text-white'
-                        : 'bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent hover:text-white hover:bg-primary-600'
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ) : (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    onClick={(e) => scrollToSection(e, item.href)}
-                    className="block px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent hover:text-white hover:bg-primary-600 rounded-full transition-all duration-300"
-                  >
-                    {item.name}
-                  </a>
-                )
-              ))}
-            </div>
-          )}
-        </div>
       </nav>
+
+      {/* Mobile Navigation - Hamburger Menu */}
+      <div className="md:hidden fixed top-[93px] right-4 z-[100] pointer-events-auto">
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="glass-effect rounded-full p-2 shadow-lg border border-gray-300/50 hover:border-gray-400/70 transition-all duration-300"
+        >
+          <svg
+            className="w-5 h-5 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {isMobileMenuOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="fixed top-[150px] right-4 glass-effect rounded-3xl shadow-2xl border-2 border-white/30 p-4 min-w-[200px] animate-fadeIn">
+            {/* VVISC Logo in Menu - Top Right */}
+            <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200/50">
+              {/* Animated Logo Mark */}
+              <div className="relative w-10 h-10 flex-shrink-0">
+                {/* VVIT Card - Left */}
+                <div className="absolute w-4 h-4 rounded-md bg-gradient-to-br from-blue-500 to-blue-600 shadow-sm left-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
+                  <span className="text-[7px] font-bold text-white">V</span>
+                </div>
+
+                {/* IUCEE Card - Right */}
+                <div className="absolute w-4 h-4 rounded-md bg-gradient-to-br from-purple-500 to-purple-600 shadow-sm right-0 top-1/2 -translate-y-1/2 flex items-center justify-center">
+                  <span className="text-[7px] font-bold text-white">I</span>
+                </div>
+
+                {/* VVISC Card - Center */}
+                <div className="absolute w-5 h-5 rounded-lg bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-600 shadow-lg left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center border border-white/20">
+                  <span className="text-[8px] font-bold text-white tracking-tight">VS</span>
+                </div>
+              </div>
+
+              {/* Brand Text */}
+              <div>
+                <h2 className="text-sm font-semibold text-gray-900">VVIT SC</h2>
+                <p className="text-xs text-gray-600">Innovation Hub</p>
+              </div>
+            </div>
+
+            {/* Menu Items */}
+            {navItems.map((item) => (
+              item.type === 'link' ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-5 py-2.5 text-sm font-bold rounded-full transition-all duration-300 mb-1 ${
+                    location.pathname === item.href
+                      ? 'bg-gradient-to-r from-primary-600 to-accent-600 text-white'
+                      : 'bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent hover:text-white hover:bg-primary-600'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => scrollToSection(e, item.href)}
+                  className="block px-5 py-2.5 text-sm font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent hover:text-white hover:bg-primary-600 rounded-full transition-all duration-300 mb-1"
+                >
+                  {item.name}
+                </a>
+              )
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 };

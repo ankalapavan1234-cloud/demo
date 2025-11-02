@@ -65,7 +65,7 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 text-center pt-40 pb-24">
+  <div className="container mx-auto px-6 sm:px-8 lg:px-12 relative z-10 text-center pt-40 md:pt-56 lg:pt-72 pb-24">
         <div className="max-w-6xl mx-auto">
           
           {/* Heading */}
@@ -215,38 +215,6 @@ const Hero = () => {
                   {/* Label */}
                   <div className="text-base font-bold text-white uppercase tracking-wide">
                     Projects
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Idea Card */}
-            <div className="relative">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-xl blur-lg opacity-25"></div>
-              <div className="relative bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20">
-                <div className="flex flex-col items-center space-y-3">
-                  {/* Icon */}
-                  <div className="w-14 h-14 flex items-center justify-center shadow-lg">
-                    <svg viewBox="0 0 120 120" className="w-14 h-14">
-                      <circle cx="60" cy="60" r="35" fill="#e0fdfa" opacity="0.4"></circle>
-                      <line x1="60" y1="60" x2="30" y2="20" stroke="#10b981" strokeWidth="2" opacity="0.7"></line>
-                      <line x1="60" y1="60" x2="90" y2="25" stroke="#10b981" strokeWidth="1.8" opacity="0.6"></line>
-                      <line x1="60" y1="60" x2="100" y2="60" stroke="#14b8a6" strokeWidth="2" opacity="0.7"></line>
-                      <line x1="60" y1="60" x2="85" y2="95" stroke="#34d399" strokeWidth="1.5" opacity="0.6"></line>
-                      <line x1="60" y1="60" x2="35" y2="100" stroke="#5eead4" strokeWidth="1.8" opacity="0.6"></line>
-                      <line x1="60" y1="60" x2="20" y2="70" stroke="#10b981" strokeWidth="1.5" opacity="0.6"></line>
-                      <circle cx="30" cy="20" r="4" fill="#10b981" opacity="0.9"></circle>
-                      <circle cx="90" cy="25" r="3.5" fill="#14b8a6" opacity="0.8"></circle>
-                      <circle cx="100" cy="60" r="4" fill="#34d399" opacity="0.9"></circle>
-                      <circle cx="85" cy="95" r="3" fill="#5eead4" opacity="0.8"></circle>
-                      <circle cx="35" cy="100" r="3.5" fill="#10b981" opacity="0.9"></circle>
-                      <circle cx="20" cy="70" r="3" fill="#14b8a6" opacity="0.8"></circle>
-                      <circle cx="60" cy="60" r="20" stroke="#10b981" strokeWidth="1" fill="none" opacity="0.4" strokeDasharray="5,5"></circle>
-                      <circle cx="60" cy="60" r="28" stroke="#14b8a6" strokeWidth="0.8" fill="none" opacity="0.3" strokeDasharray="3,6"></circle>
-                    </svg>
-                  </div>
-                  {/* Label */}
-                  <div className="text-base font-bold text-white uppercase tracking-wide">
-                    Idea
                   </div>
                 </div>
               </div>

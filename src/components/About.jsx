@@ -403,10 +403,10 @@ const About = () => {
 
               {/* CTA Button */}
               <div className="mt-10">
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary-500/50">
+                <a href="/about" className="group relative inline-block px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-bold text-lg rounded-2xl overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary-500/50">
                   <span className="relative z-10">Enter our Chapter</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-accent-600 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+                </a>
               </div>
             </div>
           </div>
