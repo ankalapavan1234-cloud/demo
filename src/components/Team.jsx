@@ -182,43 +182,6 @@ const Team = () => {
                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.5)',
                  }}>
               
-              {/* Book Binding (Center) - Spiral Bound Style with Wire-thin Rings */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-4 transform -translate-x-1/2 z-20 flex flex-col justify-between py-6">
-                {/* Spiral Rings - Wire-thin - More rings for full coverage */}
-                {[...Array(16)].map((_, index) => (
-                  <div key={index} className="relative mx-auto">
-                    {/* Ring outer circle - metallic silver with animation - wire-thin size */}
-                    <div className={`w-2.5 h-2.5 rounded-full bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500 shadow-md relative transition-all duration-500 ${
-                      isFlipping ? 'scale-110 rotate-180' : 'scale-100 rotate-0'
-                    }`}
-                         style={{
-                           boxShadow: 'inset 0 0.5px 1px rgba(255,255,255,0.6), inset 0 -0.5px 1px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3)',
-                         }}>
-                      {/* Ring inner hole - wire-thin */}
-                      <div className="absolute inset-[2px] rounded-full bg-gradient-to-br from-gray-100 to-gray-200"
-                           style={{
-                             boxShadow: 'inset 0 0.5px 0.5px rgba(0,0,0,0.3), 0 0.5px 0.5px rgba(255,255,255,0.4)',
-                           }}></div>
-                      
-                      {/* Ring highlight for 3D effect - tiny */}
-                      <div className="absolute top-0 left-0 w-1 h-1 bg-white/60 rounded-full blur-[0.3px]"></div>
-                      
-                      {/* Ring shadow on left page - subtle */}
-                      <div className="absolute right-full top-1/2 transform -translate-y-1/2 w-1.5 h-2 bg-gradient-to-r from-black/10 to-transparent mr-0.5"></div>
-                      
-                      {/* Ring shadow on right page - subtle */}
-                      <div className="absolute left-full top-1/2 transform -translate-y-1/2 w-1.5 h-2 bg-gradient-to-l from-black/10 to-transparent ml-0.5"></div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Center spine bar behind rings - wire-thin */}
-                <div className="absolute inset-0 w-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-gray-400 via-gray-500 to-gray-400 -z-10 rounded-sm"
-                     style={{
-                       boxShadow: 'inset 0 0 3px rgba(0,0,0,0.5), 0 0 5px rgba(0,0,0,0.2)',
-                     }}></div>
-              </div>
-              
               {/* Book Pages Container */}
               <div className="relative bg-white rounded-2xl overflow-hidden"
                    style={{
